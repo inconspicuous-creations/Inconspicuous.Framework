@@ -8,6 +8,7 @@ namespace Inconspicuous.Framework {
 	public class Property<T> : IObservable<T> where T : IEquatable<T> {
 		private T value;
 		private ISubject<T> subject;
+		private bool alwaysNotify;
 
 		public Property() {
 			subject = new SuperFastSubject<T>();
@@ -21,7 +22,7 @@ namespace Inconspicuous.Framework {
 		public T Value {
 			get { return value; }
 			set {
-				if(this.value == null || !this.value.Equals(value)) {
+				if(alwaysNotify || this.value == null || !this.value.Equals(value)) {
 					this.value = value;
 					subject.OnNext(value);
 				}
@@ -34,6 +35,11 @@ namespace Inconspicuous.Framework {
 				subject.OnNext(value);
 			}
 			return disposable;
+		}
+
+		public Property<T> AlwaysNotify() {
+			alwaysNotify = true;
+			return this;
 		}
 
 		public override string ToString() {

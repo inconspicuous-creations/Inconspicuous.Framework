@@ -13,16 +13,10 @@ namespace Inconspicuous.Framework {
 			container.RegisterInstance<IContext>(this);
 			container.RegisterInstance<IContextView>(contextView);
 			container.RegisterInstance<Container>(container);
-			//container.UseImportsForResolution();
-			//if(subContexts.Length == 0) {
 			container.RegisterExports(AttributedModel.DiscoverExportsInAssemblies(new[] { GetType().Assembly }));
-			//} else {
 			foreach(var subContext in subContexts) {
 				container.ResolveUnregisteredFrom(subContext.container);
-				//subContext.container.ResolveUnregisteredFrom(container);
 			}
-			//}
-			container.Resolve<IViewMediationBinder>().Mediate(contextView);
 		}
 
 		public abstract void Start();

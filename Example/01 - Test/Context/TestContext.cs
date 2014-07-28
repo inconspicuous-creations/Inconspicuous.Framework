@@ -6,6 +6,7 @@ namespace Inconspicuous.Framework.Example.Test {
 	public class TestContext : Context {
 		public TestContext(IContextView contextView, params Context[] subContexts)
 			: base(contextView, subContexts) {
+			container.Resolve<IViewMediationBinder>().Mediate(contextView);
 			//container.Register<ICommandHandler<TestCommand, NullResult>,
 			//	DimScreenEffectCommandHandlerDecorator<TestCommand, NullResult>>(setup: DecoratorSetup.With());
 		}

@@ -14,7 +14,7 @@ namespace Inconspicuous.Framework {
 			this.scheduler = scheduler;
 			queue = new List<IObservable<T>>();
 			subject = new FastSubject<T>();
-			subscription = new MultipleAssignmentDisposable();
+			subscription = new SerialDisposable();
 		}
 
 		public void Add(IObservable<T> observable) {
