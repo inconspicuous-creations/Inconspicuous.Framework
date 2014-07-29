@@ -1,14 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Inconspicuous.Common {
-	public static class ExtensionUtility {
-		public static string CamelSpaced(this string name) {
-			return Regex.Replace(name, @"([a-z])([A-Z])", @"$1 $2");
-		}
-
+	public static class CollectionExtensions {
 		public static IList<T> Clone<T>(this IList<T> list) where T : ICloneable {
 			return list.Select(i => (T)i.Clone()).ToList();
 		}

@@ -1,7 +1,6 @@
 using System.ComponentModel.Composition;
 using System.Runtime.Serialization;
 using UniRx;
-using UnityEngine;
 
 namespace Inconspicuous.Framework.Example.Test {
 	[DataContract]
@@ -12,14 +11,14 @@ namespace Inconspicuous.Framework.Example.Test {
 
 	[Export(typeof(TestViewModel))]
 	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public class TestViewModel : ViewModel {
+	public class TestViewModel {
 		private Property<string> name = new Property<string>();
 		private Signal<Unit> testSignal = new Signal<Unit>();
 		private Signal<Unit> buttonSignal = new Signal<Unit>();
 
 		public TestViewModel() {
-			testSignal.Select(_ => "Test").Subscribe(n => name.Value = n).DisposeWith(this);
-			name.Subscribe(x => Debug.Log(x)).DisposeWith(this);
+			testSignal.Select(_ => "Test").Subscribe(n => name.Value = n);
+			name.Subscribe(x => UnityEngine.Debug.Log(x));
 		}
 
 		public string Name {

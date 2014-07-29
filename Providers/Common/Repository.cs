@@ -18,11 +18,13 @@ namespace Inconspicuous.Framework {
 		}
 
 		public T Retrieve(string name) {
-			return (T)items.FirstOrDefault(i => i.Name == name).Clone();
+			var item = items.FirstOrDefault(i => i.Name == name);
+			return item != null ? item.Clone() as T : null;
 		}
 
 		public U Retrieve<U>(string name) where U : class, T {
-			return (U)items.FirstOrDefault(i => i.Name == name).Clone();
+			var item = items.FirstOrDefault(i => i.Name == name);
+			return item != null ? item.Clone() as U : null;
 		}
 
 		public U Register<U>(U item) where U : class, T {
