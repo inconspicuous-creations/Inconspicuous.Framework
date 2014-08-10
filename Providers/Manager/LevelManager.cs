@@ -21,10 +21,6 @@ namespace Inconspicuous.Framework {
 			levelManagerComponent.StopAllCoroutines();
 			levelManagerComponent.StartCoroutine(levelManagerComponent.LoadInBackground(level));
 		}
-
-		//public void FindAdAgent() {
-		//	agentObject = GameObject.Find("AdmobAdAgent");
-		//}
 	}
 
 	public class LevelManagerComponent : MonoBehaviour {
@@ -56,6 +52,7 @@ namespace Inconspicuous.Framework {
 			//	yield return StartCoroutine(agentObject.GetComponent<AdmobInterstitial>().Show());
 			//}
 			yield return Application.LoadLevelAsync(level);
+			yield return new WaitForSeconds(0.2f);
 			elapsedTime = 0f;
 			while(elapsedTime <= fadeTime) {
 				elapsedTime += Time.deltaTime;

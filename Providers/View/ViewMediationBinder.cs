@@ -20,6 +20,9 @@ namespace Inconspicuous.Framework {
 				var views = rootView.GameObject.transform.GetComponentsInChildren(typeof(IView), true).Cast<IView>().ToList();
 				foreach(var view in views) {
 					container.ResolvePropertiesAndFields(view);
+					if(view is View && !(view is ContextView)) {
+						(view as View).Initialize();
+					}
 					var type = view.GetType();
 					Type mediatorType;
 					if(!mediatorTypeMap.TryGetValue(type, out mediatorType)) {

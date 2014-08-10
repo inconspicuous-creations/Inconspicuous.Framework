@@ -7,15 +7,21 @@ namespace Inconspicuous.Framework {
 
 	[Export(typeof(ICommandHandler<StartCommand, NullResult>))]
 	public class StartCommandHandler : CommandHandler<StartCommand, NullResult> {
+		private readonly IApplicationManager applicationManager;
 		private readonly ICommandDispatcher commandDispatcher;
 		private readonly IContextScheduler contextScheduler;
 
-		public StartCommandHandler(ICommandDispatcher commandDispatcher, IContextScheduler contextScheduler) {
+		public StartCommandHandler(
+			IApplicationManager applicationManager,
+			ICommandDispatcher commandDispatcher,
+			IContextScheduler contextScheduler) {
+			this.applicationManager = applicationManager;
 			this.commandDispatcher = commandDispatcher;
 			this.contextScheduler = contextScheduler;
 		}
 
 		public override IObservable<NullResult> Handle(StartCommand command) {
+			applicationManager.Initialize();
 			return Observable.EveryUpdate()
 				.ObserveOn(contextScheduler)
 				.Do(_ => {

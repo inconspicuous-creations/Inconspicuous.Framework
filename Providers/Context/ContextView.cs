@@ -8,6 +8,11 @@ namespace Inconspicuous.Framework {
 	public abstract class ContextView : View, IContextView {
 		public IContext Context { get; protected set; }
 
+		public sealed override void Start() {
+			base.Start();
+			Initialize();
+		}
+
 		protected T Initialize<T>(params IContext[] subContexts) where T : class, IContext {
 			return Initialize(typeof(T), subContexts) as T;
 		}
@@ -31,7 +36,7 @@ namespace Inconspicuous.Framework {
 
 		protected IObservable<IContext> LoadSceneForContext(Type contextType) {
 			var sceneName = contextType.GetCustomAttributes(false).OfType<SceneAttribute>().First().SceneName;
-			return Observable.FromCoroutine<IContext>(observer => DoLoadSceneForContext(observer, sceneName));
+			return Observable.FromCoroutine<IContext>(observer => DoLoadSceneForContext(observer, sceneName)).DelayFrame(1);
 		}
 
 		private IEnumerator DoLoadSceneForContext(IObserver<IContext> observer, string sceneName) {

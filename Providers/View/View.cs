@@ -16,7 +16,6 @@ namespace Inconspicuous.Framework {
 			base.Awake();
 			OnDestroyAsObservable()
 				.Subscribe(_ => Dispose()).DisposeWith(this);
-			Initialize();
 		}
 
 		public void Dispose() {
