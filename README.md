@@ -20,7 +20,7 @@ The Mediator is a thin layer between the view and the deeper layers of the progr
 
 A ViewModel is a "reactive" model that typically consists of a set of observable properties and signals. It is used by the mediator, and can be helpful in coordinating the input/output of multiple views that display the same information or operate on the same model. There is no base class for the ViewModel, but the framework provides the Property<T> and Signal<T> helpers, to aid the ViewModel creation process. Just like the Mediator, the ViewModel is also optional.
 
-### ContextViews and Contexts
+### Contexts and ContextViews
 
 The Context is the main entry point that takes care of all interface-to-implementation bindings and can optionally run some startup logic. The ContextView is simply a view that initializes a Context at the start of the program. The ContextView should be a root game object named `_<Name>ContextView` that contains all other objects in the scene. CustomContextView or MainContextView is a general-purpose ContextView that allows you to specify any context to Initialize through the inspector.
 
