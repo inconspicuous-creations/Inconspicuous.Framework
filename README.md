@@ -12,7 +12,7 @@ Inconspicuous.Framework provides a software-centric and architecturally [SOLID](
 
 ### Views
 
-The View is the component that should be the most familiar to Unity3D developers. Views inherit from ObservableMonoBehaviour, which again inherit from the regular MonoBehaviour, meaning they are attachable to any game object. Views are the "outer-most" layer of your program that the user interfaces with. They generally connect with the user input (keys, buttons, mouse, touch screen) and respond to changes in the program by displaying fancy animations, text or sound.
+The View is a component that should be quite familiar to most Unity3D developers. Views inherit from ObservableMonoBehaviour, which again inherit from the regular MonoBehaviour, meaning they are attachable to any game object. Views are the "outer-most" layer of your program that the user interfaces with. They generally connect with the user input (keys, buttons, mouse, touch screen) and respond to changes in the program by displaying fancy animations, text or sound.
 
 ### Mediators and ViewModels
 
@@ -40,7 +40,7 @@ Commands are mainly used for asynchronous or non-guaranteed actions. The three c
 * __CommandHandler__: Executes the given command.
 * __CommandDispatcher__: Executes the given command by retrieving the appropriate commandhandler for the command, if it exists.
 
-The separation of Command and CommandHandler has the benefit of allowing Commands to be easily serialized. Additionally, when the same command is executed in different contexts, it may be handled differently (eg. for client/server architectures) or not at all (eg. WIP or delegating work).
+The separation of Command and CommandHandler has the benefit of allowing Commands to be easily serialized. Additionally, when the same command is executed in different contexts, it may be handled differently (eg. for client/server architectures) or not at all (eg. mocking during development).
 
 ## License
 
