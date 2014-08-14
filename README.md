@@ -40,7 +40,12 @@ Commands are mainly used for asynchronous or non-guaranteed actions. The three c
 * __CommandHandler__: Executes the given command.
 * __CommandDispatcher__: Executes the given command by retrieving the appropriate commandhandler for the command, if it exists.
 
-The separation of Command and CommandHandler has the benefit of allowing Commands to be easily serialized. Additionally, when the same command is executed in different contexts, it may be handled differently (eg. for client/server architectures) or not at all (eg. mocking during development).
+The separation of Command and CommandHandler has the following benefits:
+
+* Commands to be easily serialized.
+* When the same command is executed in different contexts, it may be handled differently (eg. for client/server architectures) or not at all (eg. mocking during development).
+
+The CommandDispatcher is useful when running multiple different commands. It also allows you to create replay systems, cached commands and other features using the decorator pattern.
 
 ## License
 
