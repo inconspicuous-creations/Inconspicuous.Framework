@@ -24,7 +24,7 @@ A ViewModel is a "reactive" model that typically consists of a set of observable
 
 The Context is the main entry point that takes care of all interface-to-implementation bindings and can optionally run some startup logic. The ContextView is simply a view that initializes a Context at the start of the program. The ContextView should be a root game object named `_<Name>ContextView` that contains all other objects in the scene. CustomContextView or MainContextView is a general-purpose ContextView that allows you to specify any context to Initialize through the inspector.
 
-CustomContextView also allows you to specify any number of subcontexts to initialize as dependencies (ie. before the main Context initializes). If a Context is going to be used as a subcontext, it should be defined in a different scene, be part of the build pipeline and have the `[Scene("<Name>")]` attribute specified. If the dependency graph of the application requires some implementation that can't be found in the main context, it will defer the search to any of its subcontexts.
+CustomContextView also allows you to specify any number of sub-contexts to initialize as dependencies (ie. before the main Context initializes). If a Context is going to be used as a sub-context, it should be defined in a different scene, be part of the build pipeline and have the `[Scene("<Name>")]` attribute specified. If the dependency graph of the application requires some implementation that can't be found in the main context, it will defer the search to any of its sub-contexts.
 
 By the default, the ContextView (or any of it's children) are not mediated. View mediation can be performed by executing the following once all required mediators are registered with the context:
 
@@ -44,7 +44,13 @@ This separation of concerns has the following benefits:
 
 * Commands can be easily serialized.
 * When the same command is executed in different contexts, it may be handled differently (eg. for client/server architectures) or not at all (eg. mocking during development).
-* By using the decorator pattern, you can easily add replay functionality, network synchronization and/or other useful features.
+* By using the decorator pattern, you can easily add replay functionality, network synchronization or other features on top of existing handlers or the dispatcher.
+
+Commands can also return results. Both CommandHandler and CommandDispatcher are designed in such a way that this process is completely type-safe and takes full advantage of Rx by returning an `IObservable<TCommandResult>`.
+
+#### MacroCommands
+
+A common use case for commands is to execute multiple sub-commands in succession, either in parallel (all commands are started immediately) or serially (the consequent command is not executed before the previous has finished). To help with this, the framework includes a MacroCommand and MacroCommandHandler. A MacroCommand is simply a list of Commands and a type that specifies whether the MacroCommand should execute in parallel or in sequence. In both cases, all results are aggregated and returned once all sub-commands have completed.
 
 ## License
 
