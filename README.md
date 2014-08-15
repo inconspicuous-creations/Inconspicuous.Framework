@@ -42,7 +42,7 @@ public class PanelView : View {
 The Mediator is a thin layer between the view and the deeper layers of the program. The View is often subject to a lot of changes, and the purpose of the mediator is to isolate these changes so they don't propagate and cause bugs deeper into the "core" of the program. This example shows it usage in conjunction with a view model:
 
 ```
-[Export(typeof(IMediator<PanelView>))]
+[Export(typeof(IMediator<PanelView>))] // Auto-wiring with DryIoc/MEF.
 public class PanelMediator : Mediator<PanelView> {
 	private readonly PanelViewModel panelViewModel;
 
