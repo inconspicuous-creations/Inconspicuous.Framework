@@ -44,7 +44,7 @@ The Mediator is a thin layer between the view and the deeper layers of the progr
 ```
 [Export(typeof(IMediator<PanelView>))]
 public class PanelMediator : Mediator<PanelView> {
-  private readonly PanelViewModel panelViewModel;
+	private readonly PanelViewModel panelViewModel;
 
 	public PanelMediator(PanelViewModel panelViewModel) {
 		this.panelViewModel = panelViewModel;
@@ -64,7 +64,7 @@ A ViewModel is a "reactive" model that typically consists of a set of observable
 ```
 [Export]
 public PanelViewModel {
-  private Property<bool> active;
+	private Property<bool> active;
 
 	public PanelViewModel() {
 		active = new Property<bool>();
@@ -131,16 +131,16 @@ public class OpenPanelCommand : ICommand<NullResult> { }
 
 [Export(typeof(ICommandHandler<NullResult>))]
 public class OpenPanelCommandHandler : CommandHandler<OpenPanelCommand, NullResult> {
-  private readonly PanelViewModel panelViewModel;
+	private readonly PanelViewModel panelViewModel;
   
-  public OpenPanelCommandHandler(PanelViewModel panelViewModel) {
-    this.panelViewModel = panelViewModel;
-  }
+	public OpenPanelCommandHandler(PanelViewModel panelViewModel) {
+		this.panelViewModel = panelViewModel;
+	}
   
-  public override IObservable<NullResult> Handle(OpenPanelCommand command) {
-    panelViewModel.Active = true;
-    return Observable.Return(NullResult.Default);
-  }
+	public override IObservable<NullResult> Handle(OpenPanelCommand command) {
+		panelViewModel.Active = true;
+		return Observable.Return(NullResult.Default);
+	}
 }
 ```
 
