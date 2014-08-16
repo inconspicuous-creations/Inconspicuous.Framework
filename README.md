@@ -59,7 +59,7 @@ public class PanelMediator : Mediator<PanelView> {
 }
 ```
 
-A ViewModel is a "reactive" model that typically consists of a set of observable properties and signals. The ViewModel is optional, but can be very helpful in coordinating the input/output of multiple views that display the same information or operate on the same model. There is no base class for the ViewModel, but the framework provides the Property<T> and Signal<T> helpers, to aid the ViewModel creation process.
+A ViewModel is a "reactive" model that typically consists of a set of observable properties and signals. The ViewModel is optional, but can be very helpful in coordinating the input/output of multiple views that display the same information or operate on the same model. There is no base class for the ViewModel, but the framework provides the Property\<T\> and Signal\<T\> helpers, to aid the ViewModel creation process.
 
 ```
 [Export]
@@ -81,11 +81,11 @@ public PanelViewModel {
 }
 ```
 
-#### Signal<T> and Property<T>
+#### Signal\<T\> and Property\<T\>
 
-* __Signal<T>__ is an open generic that inherits IObservable<T>, as well as containing a `Dispatch()`-method that fires the signal with a given value.
-* __Property<T>__ is basically a Signal<T> that remembers its last value and only fires a signal if the value has changed.
-* __CollectionProperty<T>__ is a generic ICollection<T> that is observable using `AddAsObservable()`, `RemoveAsObservable()` and `ClearAsObservable()`.
+* __Signal\<T\>__ is an open generic that inherits IObservable\<T\>, as well as containing a `Dispatch()`-method that fires the signal with a given value.
+* __Property\<T\>__ is basically a Signal\<T\> that remembers its last value and only fires a signal if the value has changed.
+* __CollectionProperty\<T\>__ is a generic ICollection\<T\> that is observable using `AddAsObservable()`, `RemoveAsObservable()` and `ClearAsObservable()`.
 	
 ### Contexts and ContextViews
 
