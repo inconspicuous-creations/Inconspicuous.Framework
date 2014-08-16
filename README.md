@@ -85,6 +85,7 @@ public PanelViewModel {
 
 * __Signal<T>__ is an open generic that inherits IObservable<T>, as well as containing a `Dispatch()`-method that fires the signal with a given value.
 * __Property<T>__ is basically a Signal<T> that remembers its last value and only fires a signal if the value has changed.
+* __CollectionProperty<T>__ is a generic ICollection<T> that is observable using `AddAsObservable()`, `RemoveAsObservable()` and `ClearAsObservable()`.
 	
 ### Contexts and ContextViews
 
