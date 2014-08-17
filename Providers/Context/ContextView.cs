@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
@@ -7,6 +8,12 @@ using UnityEngine;
 namespace Inconspicuous.Framework {
 	public abstract class ContextView : View, IContextView {
 		public IContext Context { get; protected set; }
+		public ICollection<IContext> SubContexts { get; protected set; }
+
+		public sealed override void Awake() {
+			base.Awake();
+			SubContexts = new List<IContext>();
+		}
 
 		public sealed override void Start() {
 			base.Start();
@@ -21,7 +28,7 @@ namespace Inconspicuous.Framework {
 			if(!typeof(IContext).IsAssignableFrom(type)) {
 				throw new ArgumentException("Not a context: " + type.FullName);
 			}
-			return Activator.CreateInstance(type, new object[] { this, subContexts.Cast<Context>().ToArray() }) as IContext;
+			return Activator.CreateInstance(type, new object[] { this, subContexts.Concat(SubContexts).Cast<Context>().ToArray() }) as IContext;
 		}
 
 		protected bool CheckAndRemoveDuplicate() {

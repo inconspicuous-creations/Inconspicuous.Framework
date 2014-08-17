@@ -1,5 +1,7 @@
+using UniRx;
+
 namespace Inconspicuous.Framework {
 	public interface ILevelManager {
-		void Load(string name);
+		IObservable<IContextView> Load(string name);
 	}
 }

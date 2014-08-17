@@ -12,7 +12,7 @@ namespace Inconspicuous.Framework {
 			get { return gameObject; }
 		}
 
-		public sealed override void Awake() {
+		public override void Awake() {
 			base.Awake();
 			OnDestroyAsObservable()
 				.Subscribe(_ => Dispose()).DisposeWith(this);

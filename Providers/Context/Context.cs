@@ -7,12 +7,16 @@ namespace Inconspicuous.Framework {
 		protected readonly Container container;
 		private readonly CompositeDisposable disposable;
 
-		protected Context(IContextView contextView, params Context[] subContexts) {
+		protected Context() {
 			container = new Container();
 			disposable = new CompositeDisposable();
 			container.RegisterInstance<IContext>(this);
-			container.RegisterInstance<IContextView>(contextView);
 			container.RegisterInstance<Container>(container);
+		}
+
+		protected Context(IContextView contextView, params Context[] subContexts)
+			: this() {
+			container.RegisterInstance<IContextView>(contextView);
 			container.RegisterExports(AttributedModel.DiscoverExportsInAssemblies(new[] { GetType().Assembly }));
 			foreach(var subContext in subContexts) {
 				container.ResolveUnregisteredFrom(subContext.container);

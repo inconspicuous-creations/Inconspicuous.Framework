@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using UniRx;
 
 namespace Inconspicuous.Framework {
 	public class LoadSceneCommand : ICommand<LoadSceneResult> {
 		public string SceneName { get; set; }
+		public ICollection<IContext> SubContexts { get; set; }
 	}
 
 	public class LoadSceneResult : IResult {
-		public string SceneName { get; set; }
+		public IContextView ContextView { get; set; }
 	}
 
 	[Export(typeof(ICommandHandler<LoadSceneCommand, LoadSceneResult>))]
@@ -21,10 +23,17 @@ namespace Inconspicuous.Framework {
 		}
 
 		public override IObservable<LoadSceneResult> Handle(LoadSceneCommand command) {
-			return Observable.Start(() => {
-				levelManager.Load(command.SceneName);
-			}, contextScheduler).Select(_ => new LoadSceneResult {
-				SceneName = command.SceneName
+			var observable = levelManager.Load(command.SceneName);
+			observable.Subscribe(contextView => {
+				var cv = contextView as ContextView;
+				if(cv != null && command.SubContexts != null) {
+					foreach(var additionalContext in command.SubContexts) {
+						cv.SubContexts.Add(additionalContext);
+					}
+				}
+			});
+			return observable.Select(contextView => new LoadSceneResult {
+				ContextView = contextView
 			});
 		}
 	}

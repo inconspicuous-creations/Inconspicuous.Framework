@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.ComponentModel.Composition;
+using UniRx;
 using UnityEngine;
 
 namespace Inconspicuous.Framework {
@@ -11,23 +13,33 @@ namespace Inconspicuous.Framework {
 			if(GameObject.Find("LevelManager") == null) {
 				var obj = new GameObject("LevelManager");
 				levelManagerComponent = obj.AddComponent<LevelManagerComponent>();
-				Object.DontDestroyOnLoad(obj);
+				UnityEngine.Object.DontDestroyOnLoad(obj);
 			} else {
 				levelManagerComponent = GameObject.Find("LevelManager").GetComponent<LevelManagerComponent>();
 			}
 		}
 
-		public void Load(string level) {
+		public IObservable<IContextView> Load(string level) {
 			levelManagerComponent.StopAllCoroutines();
 			levelManagerComponent.StartCoroutine(levelManagerComponent.LoadInBackground(level));
+			return Observable.Create<IContextView>(observer => {
+				var callback = new Action<IContextView>(contextView => {
+					observer.OnNext(contextView);
+					observer.OnCompleted();
+				});
+				levelManagerComponent.OnFinished += callback;
+				return Disposable.Create(() => levelManagerComponent.OnFinished -= callback);
+			});
 		}
 	}
 
 	public class LevelManagerComponent : MonoBehaviour {
+		public event Action<IContextView> OnFinished;
 		private float alpha;
 		private Texture2D blackTexture;
 
 		public void Awake() {
+			OnFinished = delegate { };
 			blackTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
 			blackTexture.SetPixel(0, 0, Color.blue);
 		}
@@ -52,6 +64,11 @@ namespace Inconspicuous.Framework {
 			//	yield return StartCoroutine(agentObject.GetComponent<AdmobInterstitial>().Show());
 			//}
 			yield return Application.LoadLevelAsync(level);
+			GameObject gameObject;
+			do {
+				gameObject = GameObject.Find("_" + level + "ContextView");
+			} while(gameObject == null);
+			OnFinished(gameObject.GetComponent(typeof(IContextView)) as IContextView);
 			yield return new WaitForSeconds(0.2f);
 			elapsedTime = 0f;
 			while(elapsedTime <= fadeTime) {

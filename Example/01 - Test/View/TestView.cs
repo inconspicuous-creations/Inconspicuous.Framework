@@ -10,7 +10,7 @@ namespace Inconspicuous.Framework.Example.Test {
 		public override void Initialize() {
 			UpdateAsObservable()
 				.Subscribe(_ => {
-					if(Input.GetKeyDown(KeyCode.B)) {
+					if(UnityEngine.Input.GetKeyDown(KeyCode.B)) {
 						ButtonSignal.Dispatch();
 					}
 				}).DisposeWith(this);

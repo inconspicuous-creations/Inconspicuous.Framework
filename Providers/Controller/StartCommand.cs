@@ -25,7 +25,7 @@ namespace Inconspicuous.Framework {
 			return Observable.EveryUpdate()
 				.ObserveOn(contextScheduler)
 				.Do(_ => {
-					if(Input.GetKeyDown(KeyCode.F2)) {
+					if(UnityEngine.Input.GetKeyDown(KeyCode.F2)) {
 						commandDispatcher.Dispatch(new RestartSceneCommand());
 					}
 				}).Select(_ => NullResult.Default);
