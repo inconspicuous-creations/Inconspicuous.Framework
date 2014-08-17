@@ -45,6 +45,7 @@ The Mediator is a thin layer between the view and the deeper layers of the progr
 
 ```
 [Export(typeof(IMediator<PanelView>))] // Auto-wiring with DryIoc/MEF.
+[PartCreationPolicy(CreationPolicy.NonShared)]
 public class PanelMediator : Mediator<PanelView> {
 	private readonly PanelViewModel panelViewModel;
 
