@@ -8,7 +8,7 @@ Inconspicuous.Framework is an MVVM framework for Unity3D/C#. It has the followin
 
 ## Overview
 
-Inconspicuous.Framework provides a software-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern open-source solutions and libraries. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of DI and MVVM. The big overview:
+Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern open-source solutions and libraries. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of DI and MVVM. The big overview:
 
 ![Diagram](/diagram.png?raw=true "Diagram")
 
@@ -148,7 +148,7 @@ public class OpenPanelCommandHandler : CommandHandler<OpenPanelCommand, NullResu
 }
 ```
 
-Commands can also return results. Both CommandHandler and CommandDispatcher are designed in such a way that this process is completely type-safe and takes full advantage of Rx by returning an `IObservable<TCommandResult>`. The framework includes some common commands that are useful for just about every type of program:
+Commands can also return results. Both CommandHandler and CommandDispatcher are designed in such a way that this process is completely type-safe and takes full advantage of Rx by returning an `IObservable<TResult>`. The framework includes some common commands that are useful for just about every type of program:
 
 ```
 commandDispatcher.Dispatch(new LoadSceneCommand { SceneName = "Test" });
