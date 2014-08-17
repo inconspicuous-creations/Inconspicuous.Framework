@@ -8,7 +8,9 @@ Inconspicuous.Framework is an MVVM framework for Unity3D/C#. It has the followin
 
 ## Overview
 
-Inconspicuous.Framework provides a software-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern open-source solutions and libraries. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of DI and MVVM. The big image that explains it all:
+Inconspicuous.Framework provides a software-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern open-source solutions and libraries. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of DI and MVVM. The big overview:
+
+![Diagram](/diagram.png?raw=true "Diagram")
 
 ### Views
 
