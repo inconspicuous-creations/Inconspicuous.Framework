@@ -170,6 +170,8 @@ Inconspicuous.Framework was created by Inconspicuous AS (http://www.inconspicuou
 
 ### Dependencies
 
+This framework include parts of the following open-source libraries. You may have to extract the *.unitypackage to copy the required files to the correct directories.
+
 * DryIoc (https://bitbucket.org/dadhi/dryioc)
 * MugenInjection (http://mugeninjection.codeplex.com)
 * UniRx (https://github.com/neuecc/UniRx)
