@@ -1,16 +1,13 @@
 Inconspicuous.Framework
 =======================
 
-Inconspicuous.Framework is an MVVM framework for Unity3D/C#. It has the following dependencies:
-
-* DryIoc (https://bitbucket.org/dadhi/dryioc)
-* UniRx (https://github.com/neuecc/UniRx)
-
 ## Overview
 
 Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern open-source solutions and libraries. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of DI and MVVM. The big overview:
 
 ![Diagram](/diagram.png?raw=true "Diagram")
+
+## Details
 
 ### Views
 
@@ -166,6 +163,16 @@ commandDispatcher.Dispatch(new MacroCommand(MacroCommandType.Sequence) {
 	new OpenPanelCommand()
 });
 ```
+
+## Credits
+
+Inconspicuous.Framework was created by Inconspicuous AS (http://www.inconspicuous.no).
+
+### Dependencies
+
+* DryIoc (https://bitbucket.org/dadhi/dryioc)
+* MugenInjection (http://mugeninjection.codeplex.com)
+* UniRx (https://github.com/neuecc/UniRx)
 
 ## License
 
