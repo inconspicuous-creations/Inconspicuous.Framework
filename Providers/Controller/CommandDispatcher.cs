@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using DryIoc;
+using MugenInjection;
 using UniRx;
+using Container = MugenInjection.MugenInjector;
 
 namespace Inconspicuous.Framework {
 	[Export(typeof(ICommandDispatcher))]
@@ -43,12 +44,15 @@ namespace Inconspicuous.Framework {
 		}
 
 		public IObservable<TResult> AsObservable<TResult>() where TResult : class, IResult {
-			return observerMap.GetOrAdd(typeof(TResult), x => new FastSubject<object>()).Cast<object, TResult>();
+			if(!observerMap.ContainsKey(typeof(TResult))) {
+				observerMap[typeof(TResult)] = new FastSubject<object>();
+			}
+			return observerMap[typeof(TResult)].Cast<object, TResult>();
 		}
 
 		private ICommandHandler ResolveHandlerForCommand(ICommand command) {
 			var resultType = command.GetType().GetInterface(typeof(ICommand<>).Name).GetGenericArguments()[0];
-			var handler = (ICommandHandler)container.Resolve(typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), resultType));
+			var handler = container.Get(typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), resultType)) as ICommandHandler;
 			handlerMap.Add(command.GetType(), handler);
 			return handler;
 		}

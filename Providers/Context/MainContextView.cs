@@ -17,7 +17,8 @@ namespace Inconspicuous.Framework {
 				var sceneName = Type.GetType(firstContext)
 					.GetCustomAttributes(false)
 					.OfType<SceneAttribute>().First().SceneName;
-				Application.LoadLevelAsync(sceneName);
+				var context = new MainContext(sceneName);
+				context.Start();
 			}
 		}
 	}

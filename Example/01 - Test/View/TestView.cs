@@ -1,11 +1,14 @@
-using System.ComponentModel.Composition;
 using UniRx;
 using UnityEngine;
 
 namespace Inconspicuous.Framework.Example.Test {
 	public class TestView : View {
-		[Import]
-		public Signal<Unit> ButtonSignal { get; set; }
+		public Signal<Unit> ButtonSignal { get; private set; }
+
+		[MugenInjection.Attributes.Inject]
+		public void Construct(Signal<Unit> buttonSignal) {
+			ButtonSignal = buttonSignal;
+		}
 
 		public override void Initialize() {
 			UpdateAsObservable()

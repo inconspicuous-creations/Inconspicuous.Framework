@@ -14,11 +14,9 @@ namespace Inconspicuous.Framework {
 
 	[Export(typeof(ICommandHandler<LoadSceneCommand, LoadSceneResult>))]
 	public class LoadSceneCommandHandler : CommandHandler<LoadSceneCommand, LoadSceneResult> {
-		private readonly IContextScheduler contextScheduler;
 		private readonly ILevelManager levelManager;
 
-		public LoadSceneCommandHandler(IContextScheduler contextScheduler, ILevelManager levelManager) {
-			this.contextScheduler = contextScheduler;
+		public LoadSceneCommandHandler(ILevelManager levelManager) {
 			this.levelManager = levelManager;
 		}
 

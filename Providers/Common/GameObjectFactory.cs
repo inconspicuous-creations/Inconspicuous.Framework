@@ -17,7 +17,7 @@ namespace Inconspicuous.Framework {
 		public Transform Parent { get; set; }
 	}
 
-	[ExportAll]
+	[Export(typeof(IFactory<Func<GameObjectData, GameObject>>))]
 	public class GameObjectFactory : IFactory<Func<GameObjectData, GameObject>> {
 		private readonly IViewMediationBinder viewMediationBinder;
 
