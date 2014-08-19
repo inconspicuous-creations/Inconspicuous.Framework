@@ -21,14 +21,16 @@ namespace Inconspicuous.Framework {
 		}
 
 		public override IObservable<NullResult> Handle(StartCommand command) {
-			applicationManager.Initialize();
-			return Observable.EveryUpdate()
+			Observable.EveryUpdate()
 				.ObserveOn(contextScheduler)
-				.Do(_ => {
-					if(UnityEngine.Input.GetKeyDown(KeyCode.F2)) {
-						commandDispatcher.Dispatch(new RestartSceneCommand());
+				.Subscribe(_ => {
+					if(applicationManager.DebugMode) {
+						if(UnityEngine.Input.GetKeyDown(KeyCode.F2)) {
+							commandDispatcher.Dispatch(new RestartSceneCommand());
+						}
 					}
-				}).Select(_ => NullResult.Default);
+				});
+			return Observable.Return(NullResult.Default);
 		}
 	}
 }

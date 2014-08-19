@@ -33,12 +33,8 @@ namespace Inconspicuous.Framework {
 			container.Dispose();
 		}
 
-		public static implicit operator CompositeDisposable(Context context) {
-			return context.disposable;
-		}
-
 		protected void RegisterExports() {
-			var exports = DryIoc.MefAttributedModel.AttributedModel.DiscoverExportsInAssemblies(new[] { GetType().Assembly });
+			var exports = AttributedModel.DiscoverExportsInAssemblies(new[] { GetType().Assembly });
 			foreach(var export in exports) {
 				foreach(var e in export.Exports) {
 					var binding = container.Bind(e.ServiceType).To(export.Type);
@@ -58,11 +54,22 @@ namespace Inconspicuous.Framework {
 		}
 
 		private void RegisterSubContexts(Context[] subContexts) {
+			Container lastContainer = null;
 			foreach(var subContext in subContexts) {
-				if(subContext.container != container.GetRoot()) {
-					subContext.container.AddChild(container.GetRoot());
+				if(lastContainer != null) {
+					if(subContext.container != container.GetRoot()) {
+						lastContainer.AddChild(subContext.container);
+					}
 				}
+				lastContainer = subContext.container;
 			}
+			if(lastContainer != null) {
+				lastContainer.AddChild(container.GetRoot());
+			}
+		}
+
+		public static implicit operator CompositeDisposable(Context context) {
+			return context.disposable;
 		}
 	}
 }

@@ -1,10 +1,5 @@
-using Holoville.HOTween;
-using UnityEngine;
-
 namespace Inconspicuous.Framework {
-	public class ApplicationManager : IApplicationManager {
-		private bool initialized;
-
+	public abstract class ApplicationManager : IApplicationManager {
 		public virtual string Name {
 			get { return "Unnamed Project"; }
 		}
@@ -19,14 +14,6 @@ namespace Inconspicuous.Framework {
 
 		public virtual string Version {
 			get { return "1.0.0"; }
-		}
-
-		public virtual void Initialize() {
-			if(!initialized) {
-				initialized = true;
-				Application.targetFrameRate = 60;
-				HOTween.Init(false, false, false);
-			}
 		}
 	}
 }
