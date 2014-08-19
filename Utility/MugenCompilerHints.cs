@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading;
 using MugenInjection.Infrastructure;
 
 namespace Inconspicuous.Framework {
@@ -15,18 +11,6 @@ namespace Inconspicuous.Framework {
 			dict.Get<TypeChangedAction>("test"); TypeChangedAction dummyTypeChangedAction; dict.TryGet<TypeChangedAction>("test", out dummyTypeChangedAction);
 			dict.Get<ConverterResult>("test"); ConverterResult dummyConverterResult; dict.TryGet<ConverterResult>("test", out dummyConverterResult);
 			dict.Get<ActivateType>("test"); ActivateType dummyActivateType; dict.TryGet<ActivateType>("test", out dummyActivateType);
-			//var dummyFactoredExpressionCache = HashTree<int, Expression>.Empty;
-			//var dummyDefaultResolutionCache = HashTree<Type, CompiledFactory>.Empty;
-			//var dummyKeyedResolutionCache = HashTree<Type, HashTree<object, CompiledFactory>>.Empty;
-			//Interlocked.Exchange<HashTree<int, Expression>>(
-			//	ref dummyFactoredExpressionCache,
-			//	HashTree<int, Expression>.Empty);
-			//Interlocked.Exchange<HashTree<Type, CompiledFactory>>(
-			//	ref dummyDefaultResolutionCache,
-			//	HashTree<Type, CompiledFactory>.Empty);
-			//Interlocked.Exchange<HashTree<Type, HashTree<object, CompiledFactory>>>(
-			//	ref dummyKeyedResolutionCache,
-			//	HashTree<Type, HashTree<object, CompiledFactory>>.Empty);
 		}
 	}
 }
