@@ -113,6 +113,10 @@ namespace Inconspicuous.Framework {
 				var implementation = genericMap[service.GetGenericTypeDefinition()].MakeGenericType(service.GetGenericArguments());
 				Register(service, implementation, Reuse.Transient);
 				return Resolve(service);
+			} else if(service.IsGenericType && service.GetGenericTypeDefinition() == typeof(Lazy<>)) {
+				Func<object> factory = () => Resolve(service.GetGenericArguments().First());
+				Register(service, Activator.CreateInstance(service, new[] { factory }));
+				return Resolve(service);
 			} else if(parent != null && depth < maxSearchDepth) {
 				return parent.Resolve(service, depth + 1);
 			}
