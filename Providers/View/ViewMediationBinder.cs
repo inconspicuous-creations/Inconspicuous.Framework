@@ -36,7 +36,7 @@ namespace Inconspicuous.Framework {
 							view.OnDispose += () => mediator.Dispose();
 							mediator.Mediate(view);
 						}
-					} catch(Exception _) {
+					} catch {
 						// Do nothing.
 					}
 				}
