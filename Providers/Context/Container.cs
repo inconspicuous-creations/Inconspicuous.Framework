@@ -97,8 +97,7 @@ namespace Inconspicuous.Framework {
 			var constructor = ResolveConstructor(decorator);
 			var parameterTypes = constructor.GetParameters().Select(p => p.ParameterType).ToList();
 			serviceMap[service] = () => {
-				var original = originalFactory();
-				var parameters = parameterTypes.Select(t => t == service ? original : Resolve(t)).ToArray();
+				var parameters = parameterTypes.Select(t => t == service ? originalFactory() : Resolve(t)).ToArray();
 				return constructor.Invoke(parameters);
 			};
 		}

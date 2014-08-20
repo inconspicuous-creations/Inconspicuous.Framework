@@ -41,7 +41,7 @@ public class PanelView : View {
 The Mediator is a thin layer between the view and the deeper layers of the program. The View is often subject to a lot of changes, and the purpose of the mediator is to isolate these changes so they don't propagate and cause bugs deeper into the "core" of the program. This example shows it usage in conjunction with a view model:
 
 ```
-[Export(typeof(IMediator<PanelView>))] // Auto-wiring with DryIoc/MEF.
+[Export(typeof(IMediator<PanelView>))] // Auto-wiring, MEF-style.
 [PartCreationPolicy(CreationPolicy.NonShared)]
 public class PanelMediator : Mediator<PanelView> {
 	private readonly PanelViewModel panelViewModel;
@@ -172,8 +172,6 @@ Inconspicuous.Framework was created by Inconspicuous AS (http://www.inconspicuou
 
 This framework include parts of the following open-source libraries. You may have to extract the *.unitypackage to copy the required files to the correct directories.
 
-* DryIoc (https://bitbucket.org/dadhi/dryioc)
-* MugenInjection (http://mugeninjection.codeplex.com)
 * UniRx (https://github.com/neuecc/UniRx)
 
 ## License
