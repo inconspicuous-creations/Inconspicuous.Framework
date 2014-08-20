@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Runtime.Serialization;
-using DryIoc.MefAttributedModel;
 using UnityEngine;
 
 namespace Inconspicuous.Framework {
@@ -25,7 +24,6 @@ namespace Inconspicuous.Framework {
 			this.viewMediationBinder = viewMediationBinder;
 		}
 
-		[Export]
 		public Func<GameObjectData, GameObject> Create() {
 			return gameObjectInfo => {
 				var prefab = Resources.Load("Prefabs/" + gameObjectInfo.PrefabName);

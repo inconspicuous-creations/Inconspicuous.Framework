@@ -5,7 +5,7 @@ namespace Inconspicuous.Framework.Example.Test {
 	public class TestView : View {
 		public Signal<Unit> ButtonSignal { get; private set; }
 
-		[MugenInjection.Attributes.Inject]
+		[Inject]
 		public void Construct(Signal<Unit> buttonSignal) {
 			ButtonSignal = buttonSignal;
 		}

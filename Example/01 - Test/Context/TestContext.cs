@@ -1,4 +1,3 @@
-using MugenInjection;
 using UniRx;
 
 namespace Inconspicuous.Framework.Example.Test {
@@ -11,7 +10,7 @@ namespace Inconspicuous.Framework.Example.Test {
 		}
 
 		public override void Start() {
-			container.Get<ICommandDispatcher>().Dispatch(new StartCommand()).Subscribe().DisposeWith(this);
+			container.Resolve<ICommandDispatcher>().Dispatch(new StartCommand()).Subscribe().DisposeWith(this);
 		}
 	}
 }

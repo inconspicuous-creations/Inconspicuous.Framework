@@ -15,13 +15,15 @@ namespace Inconspicuous.Framework {
 				tk2dSystem.CurrentPlatform = "1x";
 			}
 			RegisterExports();
-			container.Bind<IContextView>().ToConstant(contextView);
-			container.Get<IViewMediationBinder>().Mediate(contextView);
+			container.Register<IContextView>(contextView);
+			container.Resolve<IViewMediationBinder>().Mediate(contextView);
 		}
 
 		public override void Start() {
-			container.Get<ICommandDispatcher>().Dispatch(new StartCommand());
-			container.Get<ICommandDispatcher>().Dispatch(new LoadSceneCommand { SceneName = sceneName });
+			container.Resolve<ICommandDispatcher>().Dispatch(new StartCommand());
+			if(Application.loadedLevelName == "Main") {
+				container.Resolve<ICommandDispatcher>().Dispatch(new LoadSceneCommand { SceneName = sceneName });
+			}
 		}
 	}
 }

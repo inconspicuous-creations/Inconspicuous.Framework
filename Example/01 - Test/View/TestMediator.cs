@@ -1,13 +1,11 @@
 using System;
 using System.ComponentModel.Composition;
-using DryIoc.MefAttributedModel;
 using UniRx;
 using UnityEngine;
 
 namespace Inconspicuous.Framework.Example.Test {
-	[ExportAll]
+	[Export(typeof(IFactory<Func<int, Test>>))]
 	public class TestFactory : IFactory<Func<int, Test>> {
-		[Export]
 		public Func<int, Test> Create() {
 			return i => new Test { Name = i.ToString() };
 		}

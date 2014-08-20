@@ -4,17 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using MugenInjection;
-using MugenInjection.Exceptions;
-using Container = MugenInjection.MugenInjector;
 
 namespace Inconspicuous.Framework {
 	[Export(typeof(IViewMediationBinder))]
 	public class ViewMediationBinder : IViewMediationBinder {
-		private readonly Container container;
+		private readonly IContainer container;
 		private IDictionary<Type, Type> mediatorTypeMap;
 
-		public ViewMediationBinder(Container container) {
+		public ViewMediationBinder(IContainer container) {
 			this.container = container;
 			mediatorTypeMap = new Dictionary<Type, Type>();
 		}
@@ -34,12 +31,12 @@ namespace Inconspicuous.Framework {
 						mediatorTypeMap[type] = mediatorType;
 					}
 					try {
-						var mediator = container.Get(mediatorType) as IMediator;
+						var mediator = container.Resolve(mediatorType) as IMediator;
 						if(mediator != null) {
 							view.OnDispose += () => mediator.Dispose();
 							mediator.Mediate(view);
 						}
-					} catch(BindingNotFoundException _) {
+					} catch(Exception _) {
 						// Do nothing.
 					}
 				}

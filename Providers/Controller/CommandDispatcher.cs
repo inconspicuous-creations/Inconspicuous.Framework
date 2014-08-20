@@ -1,18 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using MugenInjection;
 using UniRx;
-using Container = MugenInjection.MugenInjector;
 
 namespace Inconspicuous.Framework {
 	[Export(typeof(ICommandDispatcher))]
 	public class CommandDispatcher : ICommandDispatcher {
-		private readonly Container container;
+		private readonly IContainer container;
 		private Dictionary<Type, ICommandHandler> handlerMap;
 		private Dictionary<Type, ISubject<object>> observerMap;
 
-		public CommandDispatcher(Container container) {
+		public CommandDispatcher(IContainer container) {
 			this.container = container;
 			handlerMap = new Dictionary<Type, ICommandHandler>();
 			observerMap = new Dictionary<Type, ISubject<object>>();
@@ -52,7 +50,7 @@ namespace Inconspicuous.Framework {
 
 		private ICommandHandler ResolveHandlerForCommand(ICommand command) {
 			var resultType = command.GetType().GetInterface(typeof(ICommand<>).Name).GetGenericArguments()[0];
-			var handler = container.Get(typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), resultType)) as ICommandHandler;
+			var handler = container.Resolve(typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), resultType)) as ICommandHandler;
 			handlerMap.Add(command.GetType(), handler);
 			return handler;
 		}

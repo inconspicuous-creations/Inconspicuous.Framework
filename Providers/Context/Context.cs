@@ -1,27 +1,22 @@
-using DryIoc.MefAttributedModel;
-using MugenInjection.Activators;
-using MugenInjection.Core;
+using System.ComponentModel.Composition;
+using System.Linq;
 using UniRx;
-using Container = MugenInjection.MugenInjector;
 
 namespace Inconspicuous.Framework {
 	public abstract class Context : IContext {
-		protected readonly Container container;
+		protected readonly IContainer container;
 		private readonly CompositeDisposable disposable;
 
 		protected Context() {
-			container = new Container(new DefaultInjectorSetting {
-				IsAutoScanAssembly = false,
-				DefaultActivatorFactory = () => new ReflectionActivator()
-			});
+			container = new Container();
 			disposable = new CompositeDisposable();
-			container.Bind<IContext>().ToConstant(this);
-			container.Bind<Container>().ToConstant(container);
+			container.Register<IContext>(this);
+			container.Register<IContainer>(container);
 		}
 
 		protected Context(IContextView contextView, params Context[] subContexts)
 			: this() {
-			container.Bind<IContextView>().ToConstant(contextView);
+			container.Register<IContextView>(contextView);
 			RegisterExports();
 			RegisterSubContexts(subContexts);
 		}
@@ -34,37 +29,37 @@ namespace Inconspicuous.Framework {
 		}
 
 		protected void RegisterExports() {
-			var exports = AttributedModel.DiscoverExportsInAssemblies(new[] { GetType().Assembly });
-			foreach(var export in exports) {
-				foreach(var e in export.Exports) {
-					var binding = container.Bind(e.ServiceType).To(export.Type);
-					if(export.IsSingleton) {
-						binding.InSingletonScope();
-					}
-					if(e.ServiceType.IsGenericType && e.ServiceType.GetGenericTypeDefinition() == typeof(IFactory<>)) {
-						foreach(var t in e.ServiceType.GetGenericArguments()) {
-							container.Bind(t).ToMethod(_ => {
-								var factory = container.Get(e.ServiceType);
-								return factory.GetType().GetMethod("Create").Invoke(factory, null);
-							});
-						}
+			var types = GetType().Assembly.GetTypes().Where(t => t.GetCustomAttributes(typeof(ExportAttribute), true).Any()).ToList();
+			foreach(var type in types) {
+				foreach(var export in type.GetCustomAttributes(typeof(ExportAttribute), true).Cast<ExportAttribute>()) {
+					var singleton = type.GetCustomAttributes(typeof(PartCreationPolicyAttribute), true).Any() ?
+						type.GetCustomAttributes(typeof(PartCreationPolicyAttribute), true).OfType<PartCreationPolicyAttribute>()
+							.Select(p => p.CreationPolicy != CreationPolicy.NonShared).First() : true;
+					var service = export.ContractType != null ? export.ContractType : type;
+					container.Register(service, type, singleton ? Reuse.Singleton : Reuse.Transient);
+					if(service.IsGenericType && service.GetGenericTypeDefinition() == typeof(IFactory<>)) {
+						container.Register(service.GetGenericArguments().First(), () => {
+							var factory = container.Resolve(service);
+							return factory.GetType().GetMethod("Create").Invoke(factory, null);
+						});
 					}
 				}
 			}
 		}
 
 		private void RegisterSubContexts(Context[] subContexts) {
-			Container lastContainer = null;
+			IContainer lastContainer = null;
 			foreach(var subContext in subContexts) {
 				if(lastContainer != null) {
-					if(subContext.container != container.GetRoot()) {
-						lastContainer.AddChild(subContext.container);
+					if(subContext.container.Parent == null) {
+						subContext.container.Parent = lastContainer;
 					}
 				}
 				lastContainer = subContext.container;
 			}
 			if(lastContainer != null) {
-				lastContainer.AddChild(container.GetRoot());
+				container.Parent = lastContainer;
+				subContexts.First().container.Parent = container;
 			}
 		}
 

@@ -57,7 +57,6 @@ namespace Inconspicuous.Framework {
 			while(elapsedTime <= fadeTime) {
 				elapsedTime += Time.deltaTime;
 				alpha = Mathf.Clamp01(elapsedTime / fadeTime);
-				AudioListener.volume = 1f - alpha;
 				yield return null;
 			}
 			//if(agentObject != null && level == "Game") {
@@ -68,13 +67,22 @@ namespace Inconspicuous.Framework {
 			do {
 				gameObject = GameObject.Find("_" + level + "ContextView");
 			} while(gameObject == null);
-			OnFinished(gameObject.GetComponent(typeof(IContextView)) as IContextView);
-			yield return new WaitForSeconds(0.2f);
+			var contextView = gameObject.GetComponent(typeof(IContextView)) as IContextView;
+			OnFinished(contextView);
+			var concreteContextView = contextView as ContextView;
+			if(concreteContextView != null) {
+				var started = false;
+				concreteContextView.UpdateAsObservable()
+					.Skip(5).First()
+					.Subscribe(_ => started = true);
+				while(!started) {
+					yield return null;
+				}
+			}
 			elapsedTime = 0f;
 			while(elapsedTime <= fadeTime) {
 				elapsedTime += Time.deltaTime;
 				alpha = Mathf.Clamp01(1f - (elapsedTime / fadeTime));
-				AudioListener.volume = 1f - alpha;
 				yield return null;
 			}
 		}
