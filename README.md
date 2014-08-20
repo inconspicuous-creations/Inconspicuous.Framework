@@ -11,13 +11,15 @@ Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http
 
 ### Views
 
-The View is a component that should be quite familiar to most Unity3D developers. Views inherit from ObservableMonoBehaviour, which again inherit from the regular MonoBehaviour, meaning they are attachable to any game object. Views are the "outer-most" layer of your program that the user interfaces with. They generally connect with the user input (keys, buttons, mouse, touch screen) and respond to changes in the program by displaying fancy animations, text or sound. Just like MonoBehaviours, Views can't have constructors, and as such must rely on dependency injection via properties and an `Initialize()`-method.
+The View is a component that should be quite familiar to most Unity3D developers. Views inherit from ObservableMonoBehaviour, which again inherit from the regular MonoBehaviour, meaning they are attachable to any game object. Views are the "outer-most" layer of your program that the user interfaces with. They generally connect with the user input (keys, buttons, mouse, touch screen) and respond to changes in the program by displaying fancy animations, text or sound. Just like MonoBehaviours, Views can't have constructors, and as such must rely on method-injection using the `[Inject]`-attribute.
 
 ```
 public class PanelView : View {
-	public Signal<Unit> CloseSignal { get; set; } // Will be injected.
+	public Signal<Unit> CloseSignal { get; private set; }
 
-	public override void Initialize() {
+	[Inject]
+	public void Construct(Signal<Unit> closeSignal) {
+		CloseSignal = closeSignal;
 		UpdateAsObservable()
 			.Subscribe(_ => {
 				if(Input.GetKeyDown(KeyCode.Escape)) {
@@ -89,7 +91,7 @@ public PanelViewModel {
 	
 ### Contexts and ContextViews
 
-The Context is the main entry point that takes care of all interface-to-implementation bindings and can optionally run some startup logic. The ContextView is simply a view that initializes a Context at the start of the program. The ContextView should be a root game object named `_<Name>ContextView` that contains all other objects in the scene. CustomContextView or MainContextView is a general-purpose ContextView that allows you to specify any context to Initialize through the inspector.
+The Context is the main entry point that takes care of all interface-to-implementation bindings and can optionally run some startup logic. The ContextView is simply a view that initializes a Context at the start of the program. The ContextView should be a root game object named `_<Name>ContextView` that contains all other objects in the scene. CustomContextView or MainContextView is a general-purpose ContextView that allows you to specify any context to initialize through the inspector.
 
 ```
 [Scene("Test")]
