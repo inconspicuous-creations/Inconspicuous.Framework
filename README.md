@@ -3,7 +3,16 @@ Inconspicuous.Framework
 
 ## Overview
 
-Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern open-source solutions and libraries. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of DI and MVVM. The big overview:
+Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern patterns and solutions. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of IoC, DI and MVCVM. The library has been tested and confirmed to work on PC, Mac and IOS.
+
+### Key Features
+
+* DI container with decorator support and MEF-style annotations that works on IOS.
+* View mediation and view models to separate view logic and business logic.
+* Flexible context system with support for multiple contexts in one scene or loading sub-contexts from external scenes.
+* Rx-powered command system that allow type-safe dispatching and processing of asynchronous events and results.
+
+### Architecture
 
 ![Diagram](/diagram.png?raw=true)
 
