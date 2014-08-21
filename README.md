@@ -9,8 +9,8 @@ Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http
 
 * DI container with decorator support and MEF-style annotations that works on IOS.
 * View mediation and view models to separate view logic and business logic.
-* Flexible context system with support for multiple contexts in one scene or loading sub-contexts from external scenes.
-* Rx-powered command system that allow type-safe dispatching and processing of asynchronous events and results.
+* Support for multiple contexts in one scene and/or loading sub-contexts from external scenes.
+* Rx-powered command system that allow type-safe processing of asynchronous events and results.
 
 ### Architecture
 
