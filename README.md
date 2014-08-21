@@ -7,7 +7,7 @@ Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http
 
 ### Key Features
 
-* DI container with decorator support and MEF-style annotations that works on IOS.
+* DI container with decorator support and MEF-style annotations that works with AOT-devices.
 * View mediation and view models to separate view logic and business logic.
 * Support for multiple contexts in one scene and/or loading sub-contexts from external scenes.
 * Rx-powered command system that allow type-safe processing of asynchronous events and results.
