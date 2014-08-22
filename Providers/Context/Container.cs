@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Inconspicuous.Framework {
 	public class Container : IContainer {
-		private const int maxSearchDepth = 20;
+		private const int maxSearchDepth = 5;
 
 		private IContainer parent;
 		private List<IContainer> children;
