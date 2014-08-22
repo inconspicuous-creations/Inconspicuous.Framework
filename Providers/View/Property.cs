@@ -5,7 +5,7 @@ using UniRx;
 namespace Inconspicuous.Framework {
 	[Export(typeof(Property<>))]
 	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public class Property<T> : IObservable<T> where T : IEquatable<T> {
+	public class Property<T> : IObservable<T> {
 		private T value;
 		private ISubject<T> subject;
 		private bool alwaysNotify;
