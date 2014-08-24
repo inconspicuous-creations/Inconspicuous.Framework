@@ -52,7 +52,7 @@ namespace Inconspicuous.Framework {
 		}
 
 		public IEnumerator LoadInBackground(string level) {
-			float fadeTime = 0.2f;
+			float fadeTime = 0.5f;
 			float elapsedTime = 0f;
 			while(elapsedTime <= fadeTime) {
 				elapsedTime += Time.deltaTime;
@@ -72,7 +72,7 @@ namespace Inconspicuous.Framework {
 			var concreteContextView = contextView as ContextView;
 			if(concreteContextView != null) {
 				var started = false;
-				concreteContextView.UpdateAsObservable()
+				concreteContextView.FixedUpdateAsObservable()
 					.Skip(5).First()
 					.Subscribe(_ => started = true);
 				while(!started) {
@@ -80,6 +80,7 @@ namespace Inconspicuous.Framework {
 				}
 			}
 			elapsedTime = 0f;
+			fadeTime = 0.8f;
 			while(elapsedTime <= fadeTime) {
 				elapsedTime += Time.deltaTime;
 				alpha = Mathf.Clamp01(1f - (elapsedTime / fadeTime));
