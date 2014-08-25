@@ -15,11 +15,6 @@ namespace Inconspicuous.Framework {
 			SubContexts = new List<IContext>();
 		}
 
-		public sealed override void Start() {
-			base.Start();
-			Initialize();
-		}
-
 		protected T Initialize<T>(params IContext[] subContexts) where T : class, IContext {
 			return Initialize(typeof(T), subContexts) as T;
 		}

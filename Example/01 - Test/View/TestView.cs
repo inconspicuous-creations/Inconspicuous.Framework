@@ -8,9 +8,6 @@ namespace Inconspicuous.Framework.Example.Test {
 		[Inject]
 		public void Construct(Signal<Unit> buttonSignal) {
 			ButtonSignal = buttonSignal;
-		}
-
-		public override void Initialize() {
 			UpdateAsObservable()
 				.Subscribe(_ => {
 					if(UnityEngine.Input.GetKeyDown(KeyCode.B)) {

@@ -15,7 +15,8 @@ namespace Inconspicuous.Framework {
 		[Type(typeof(IContext))]
 		private string[] subContextTypes;
 
-		public override void Initialize() {
+		public override void Start() {
+			base.Start();
 			if(!CheckAndRemoveDuplicate()) {
 				WaitForMainContextView()
 					.Subscribe(_ => {

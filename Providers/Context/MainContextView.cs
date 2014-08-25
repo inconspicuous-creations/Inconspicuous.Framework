@@ -11,7 +11,8 @@ namespace Inconspicuous.Framework {
 		[Type(typeof(IContext))]
 		private string firstContext;
 
-		public override void Initialize() {
+		public override void Start() {
+			base.Start();
 			if(!CheckAndRemoveDuplicate()) {
 				GameObject.DontDestroyOnLoad(GameObject);
 				var sceneName = Type.GetType(firstContext)

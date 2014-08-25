@@ -23,8 +23,6 @@ namespace Inconspicuous.Framework {
 			disposable.Dispose();
 		}
 
-		public abstract void Initialize();
-
 		public static implicit operator CompositeDisposable(View view) {
 			return view.disposable;
 		}
