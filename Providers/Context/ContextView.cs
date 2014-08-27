@@ -10,6 +10,11 @@ namespace Inconspicuous.Framework {
 		public IContext Context { get; protected set; }
 		public ICollection<IContext> SubContexts { get; protected set; }
 
+		public void Persist() {
+			UnityEngine.GameObject.DontDestroyOnLoad(gameObject);
+			onDestroySubscription.Dispose();
+		}
+
 		public sealed override void Awake() {
 			base.Awake();
 			SubContexts = new List<IContext>();
@@ -23,7 +28,9 @@ namespace Inconspicuous.Framework {
 			if(!typeof(IContext).IsAssignableFrom(type)) {
 				throw new ArgumentException("Not a context: " + type.FullName);
 			}
-			return Activator.CreateInstance(type, new object[] { this, subContexts.Concat(SubContexts).Cast<Context>().ToArray() }) as IContext;
+			var context = Activator.CreateInstance(type, new object[] { this, subContexts.Concat(SubContexts).Cast<Context>().ToArray() }) as IContext;
+			context.DisposeWith(this);
+			return context;
 		}
 
 		protected bool CheckAndRemoveDuplicate() {

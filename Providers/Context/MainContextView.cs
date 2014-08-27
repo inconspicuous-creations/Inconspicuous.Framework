@@ -14,7 +14,7 @@ namespace Inconspicuous.Framework {
 		public override void Start() {
 			base.Start();
 			if(!CheckAndRemoveDuplicate()) {
-				GameObject.DontDestroyOnLoad(GameObject);
+				Persist();
 				var sceneName = Type.GetType(firstContext)
 					.GetCustomAttributes(false)
 					.OfType<SceneAttribute>().First().SceneName;

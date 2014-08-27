@@ -6,6 +6,7 @@ namespace Inconspicuous.Framework {
 	public abstract class View : FastObservableMonoBehaviour, IView {
 		public event Action OnDispose = delegate { };
 
+		protected IDisposable onDestroySubscription;
 		private CompositeDisposable disposable = new CompositeDisposable();
 
 		public GameObject GameObject {
@@ -14,7 +15,7 @@ namespace Inconspicuous.Framework {
 
 		public override void Awake() {
 			base.Awake();
-			OnDestroyAsObservable()
+			onDestroySubscription = OnDestroyAsObservable()
 				.Subscribe(_ => Dispose()).DisposeWith(this);
 		}
 

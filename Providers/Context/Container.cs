@@ -144,10 +144,9 @@ namespace Inconspicuous.Framework {
 		}
 
 		public void Dispose() {
+			genericMap.Clear();
+			serviceMap.Clear();
 			parent = null;
-			foreach(var child in children) {
-				child.Dispose();
-			}
 			children.Clear();
 		}
 	}
