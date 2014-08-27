@@ -9,7 +9,7 @@ namespace Inconspicuous.Framework {
 		Sequence
 	}
 
-	public class MacroCommand : List<ICommand>, ICommand<MacroResult> {
+	public class MacroCommand : List<ICommand>, ICommand<ICollection<object>> {
 		public MacroCommand() { }
 
 		public MacroCommand(MacroCommandType macroCommandType) {
@@ -19,16 +19,8 @@ namespace Inconspicuous.Framework {
 		public MacroCommandType MacroCommandType { get; set; }
 	}
 
-	public class MacroResult : List<object> {
-		public MacroResult() { }
-
-		public MacroResult(ICollection<object> results) {
-			AddRange(results);
-		}
-	}
-
-	[Export(typeof(ICommandHandler<MacroCommand, MacroResult>))]
-	public class MacroCommandHandler : CommandHandler<MacroCommand, MacroResult> {
+	[Export(typeof(ICommandHandler<MacroCommand, ICollection<object>>))]
+	public class MacroCommandHandler : CommandHandler<MacroCommand, ICollection<object>> {
 		private readonly ICommandDispatcher commandDispatcher;
 		private readonly IContextScheduler contextScheduler;
 
@@ -37,19 +29,19 @@ namespace Inconspicuous.Framework {
 			this.contextScheduler = contextScheduler;
 		}
 
-		public override IObservable<MacroResult> Handle(MacroCommand command) {
+		public override IObservable<ICollection<object>> Handle(MacroCommand command) {
 			if(command.Count > 0) {
 				switch(command.MacroCommandType) {
 					case MacroCommandType.Parallel:
 						var results = command.Select(c => commandDispatcher.Dispatch(c)).ToArray();
-						return Observable.WhenAll(results).ObserveOn(contextScheduler).Select(r => new MacroResult(r));
+						return Observable.WhenAll(results).ObserveOn(contextScheduler).Select(r => r.ToList() as ICollection<object>);
 					case MacroCommandType.Sequence:
 						var queue = new ObservableQueue<object>(contextScheduler);
 						queue.AddRange(command.Select(c => Observable.Defer(() => commandDispatcher.Dispatch(c))));
-						return queue.Buffer(command.Count).Select(r => new MacroResult(r));
+						return queue.Buffer(command.Count).Select(r => r.ToList() as ICollection<object>);
 				}
 			}
-			return Observable.Return(new MacroResult());
+			return Observable.Return<ICollection<object>>(new List<object>());
 		}
 	}
 }

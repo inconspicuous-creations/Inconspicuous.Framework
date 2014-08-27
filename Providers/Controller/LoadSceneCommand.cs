@@ -3,24 +3,20 @@ using System.ComponentModel.Composition;
 using UniRx;
 
 namespace Inconspicuous.Framework {
-	public class LoadSceneCommand : ICommand<LoadSceneResult> {
+	public class LoadSceneCommand : ICommand<IContextView> {
 		public string SceneName { get; set; }
 		public ICollection<IContext> SubContexts { get; set; }
 	}
 
-	public class LoadSceneResult {
-		public IContextView ContextView { get; set; }
-	}
-
-	[Export(typeof(ICommandHandler<LoadSceneCommand, LoadSceneResult>))]
-	public class LoadSceneCommandHandler : CommandHandler<LoadSceneCommand, LoadSceneResult> {
+	[Export(typeof(ICommandHandler<LoadSceneCommand, IContextView>))]
+	public class LoadSceneCommandHandler : CommandHandler<LoadSceneCommand, IContextView> {
 		private readonly ILevelManager levelManager;
 
 		public LoadSceneCommandHandler(ILevelManager levelManager) {
 			this.levelManager = levelManager;
 		}
 
-		public override IObservable<LoadSceneResult> Handle(LoadSceneCommand command) {
+		public override IObservable<IContextView> Handle(LoadSceneCommand command) {
 			var observable = levelManager.Load(command.SceneName);
 			observable.Subscribe(contextView => {
 				var cv = contextView as ContextView;
@@ -30,9 +26,7 @@ namespace Inconspicuous.Framework {
 					}
 				}
 			});
-			return observable.Select(contextView => new LoadSceneResult {
-				ContextView = contextView
-			});
+			return observable;
 		}
 	}
 }
