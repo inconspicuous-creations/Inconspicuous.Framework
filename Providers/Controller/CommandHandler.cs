@@ -1,19 +1,15 @@
 using UniRx;
 
 namespace Inconspicuous.Framework {
-	public class NullResult : IResult {
-		public static NullResult Default = new NullResult();
-	}
-
 	public abstract class CommandHandler<TCommand, TResult> : ICommandHandler<TCommand, TResult>
 		where TCommand : class, ICommand
-		where TResult : class, IResult {
+		where TResult : class {
 		public abstract IObservable<TResult> Handle(TCommand command);
 
-		public IObservable<IResult> Handle(ICommand command) {
+		public IObservable<object> Handle(ICommand command) {
 			var convertedCommand = command as TCommand;
 			if(convertedCommand != null) {
-				return Handle(convertedCommand as TCommand).Cast<TResult, IResult>();
+				return Handle(convertedCommand as TCommand).Cast<TResult, object>();
 			} else {
 				throw new CommandHandlerMismatchException(this, command);
 			}

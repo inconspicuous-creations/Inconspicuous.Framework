@@ -16,12 +16,12 @@ namespace Inconspicuous.Framework {
 			observerMap = new Dictionary<Type, ISubject<object>>();
 		}
 
-		public IObservable<IResult> Dispatch(ICommand command) {
+		public IObservable<object> Dispatch(ICommand command) {
 			ICommandHandler commandHandler;
 			if(!handlerMap.TryGetValue(command.GetType(), out commandHandler)) {
 				commandHandler = ResolveHandlerForCommand(command);
 			}
-			return commandHandler.Handle(command).Do(r => {
+			return commandHandler.Handle(command).Cast<object, object>().Do(r => {
 				var type = r.GetType();
 				if(observerMap.ContainsKey(type)) {
 					observerMap[type].OnNext(r);
@@ -29,19 +29,19 @@ namespace Inconspicuous.Framework {
 			});
 		}
 
-		public IObservable<TResult> Dispatch<TResult>(ICommand<TResult> command) where TResult : class, IResult {
+		public IObservable<TResult> Dispatch<TResult>(ICommand<TResult> command) where TResult : class {
 			ICommandHandler commandHandler;
 			if(!handlerMap.TryGetValue(command.GetType(), out commandHandler)) {
 				commandHandler = ResolveHandlerForCommand(command);
 			}
-			return commandHandler.Handle(command).Cast<IResult, TResult>().Do(r => {
+			return commandHandler.Handle(command).Cast<object, TResult>().Do(r => {
 				if(observerMap.ContainsKey(typeof(TResult))) {
 					observerMap[typeof(TResult)].OnNext(r);
 				}
 			});
 		}
 
-		public IObservable<TResult> AsObservable<TResult>() where TResult : class, IResult {
+		public IObservable<TResult> AsObservable<TResult>() where TResult : class {
 			if(!observerMap.ContainsKey(typeof(TResult))) {
 				observerMap[typeof(TResult)] = new FastSubject<object>();
 			}

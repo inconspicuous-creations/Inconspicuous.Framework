@@ -3,10 +3,10 @@ using UniRx;
 using UnityEngine;
 
 namespace Inconspicuous.Framework {
-	public class StartCommand : ICommand<NullResult> { }
+	public class StartCommand : ICommand<Unit> { }
 
-	[Export(typeof(ICommandHandler<StartCommand, NullResult>))]
-	public class StartCommandHandler : CommandHandler<StartCommand, NullResult> {
+	[Export(typeof(ICommandHandler<StartCommand, Unit>))]
+	public class StartCommandHandler : CommandHandler<StartCommand, Unit> {
 		private readonly IApplicationManager applicationManager;
 		private readonly ICommandDispatcher commandDispatcher;
 		private readonly IContextScheduler contextScheduler;
@@ -20,7 +20,7 @@ namespace Inconspicuous.Framework {
 			this.contextScheduler = contextScheduler;
 		}
 
-		public override IObservable<NullResult> Handle(StartCommand command) {
+		public override IObservable<Unit> Handle(StartCommand command) {
 			Observable.EveryUpdate()
 				.ObserveOn(contextScheduler)
 				.Subscribe(_ => {
@@ -30,7 +30,7 @@ namespace Inconspicuous.Framework {
 						}
 					}
 				});
-			return Observable.Return(NullResult.Default);
+			return Observable.Return(Unit.Default);
 		}
 	}
 }

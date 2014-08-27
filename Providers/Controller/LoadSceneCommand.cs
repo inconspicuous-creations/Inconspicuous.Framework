@@ -8,7 +8,7 @@ namespace Inconspicuous.Framework {
 		public ICollection<IContext> SubContexts { get; set; }
 	}
 
-	public class LoadSceneResult : IResult {
+	public class LoadSceneResult {
 		public IContextView ContextView { get; set; }
 	}
 

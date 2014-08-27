@@ -3,13 +3,13 @@ using UniRx;
 using UnityEngine;
 
 namespace Inconspicuous.Framework {
-	public class QuitApplicationCommand : ICommand<NullResult> { }
+	public class QuitApplicationCommand : ICommand<Unit> { }
 
-	[Export(typeof(ICommandHandler<QuitApplicationCommand, NullResult>))]
-	public class QuitApplicationCommandHandler : CommandHandler<QuitApplicationCommand, NullResult> {
-		public override IObservable<NullResult> Handle(QuitApplicationCommand macroCommand) {
+	[Export(typeof(ICommandHandler<QuitApplicationCommand, Unit>))]
+	public class QuitApplicationCommandHandler : CommandHandler<QuitApplicationCommand, Unit> {
+		public override IObservable<Unit> Handle(QuitApplicationCommand macroCommand) {
 			Application.Quit();
-			return Observable.Return(NullResult.Default);
+			return Observable.Return(Unit.Default);
 		}
 	}
 }

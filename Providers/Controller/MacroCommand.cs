@@ -19,10 +19,10 @@ namespace Inconspicuous.Framework {
 		public MacroCommandType MacroCommandType { get; set; }
 	}
 
-	public class MacroResult : List<IResult>, IResult {
+	public class MacroResult : List<object> {
 		public MacroResult() { }
 
-		public MacroResult(ICollection<IResult> results) {
+		public MacroResult(ICollection<object> results) {
 			AddRange(results);
 		}
 	}
@@ -44,7 +44,7 @@ namespace Inconspicuous.Framework {
 						var results = command.Select(c => commandDispatcher.Dispatch(c)).ToArray();
 						return Observable.WhenAll(results).ObserveOn(contextScheduler).Select(r => new MacroResult(r));
 					case MacroCommandType.Sequence:
-						var queue = new ObservableQueue<IResult>(contextScheduler);
+						var queue = new ObservableQueue<object>(contextScheduler);
 						queue.AddRange(command.Select(c => Observable.Defer(() => commandDispatcher.Dispatch(c))));
 						return queue.Buffer(command.Count).Select(r => new MacroResult(r));
 				}

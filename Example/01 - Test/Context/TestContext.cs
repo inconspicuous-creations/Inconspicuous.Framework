@@ -5,8 +5,8 @@ namespace Inconspicuous.Framework.Example.Test {
 	public class TestContext : Context {
 		public TestContext(IContextView contextView, params Context[] subContexts)
 			: base(contextView, subContexts) {
-			//container.Register<ICommandHandler<TestCommand, NullResult>,
-			//	DimScreenEffectCommandHandlerDecorator<TestCommand, NullResult>>(setup: DecoratorSetup.With());
+			//container.Register<ICommandHandler<TestCommand, Unit>,
+			//	DimScreenEffectCommandHandlerDecorator<TestCommand, Unit>>(setup: DecoratorSetup.With());
 		}
 
 		public override void Start() {
