@@ -72,8 +72,8 @@ namespace Inconspicuous.Framework {
 			var concreteContextView = contextView as ContextView;
 			if(concreteContextView != null) {
 				var started = false;
-				concreteContextView.FixedUpdateAsObservable()
-					.Skip(5).First()
+				concreteContextView.UpdateAsObservable()
+					.Skip(10).First()
 					.Subscribe(_ => started = true);
 				while(!started) {
 					yield return null;
