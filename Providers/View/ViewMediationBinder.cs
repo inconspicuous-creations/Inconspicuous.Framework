@@ -33,8 +33,10 @@ namespace Inconspicuous.Framework {
 							view.OnDispose += () => mediator.Dispose();
 							mediator.Mediate(view);
 						}
-					} catch {
+					} catch(CustomException _) {
 						// Do nothing.
+					} catch(Exception e) {
+						UnityEngine.Debug.LogException(e);
 					}
 				}
 			}
