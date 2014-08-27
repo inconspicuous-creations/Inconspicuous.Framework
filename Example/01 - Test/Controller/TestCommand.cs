@@ -19,13 +19,12 @@ namespace Inconspicuous.Framework.Example.Test {
 
 		public override IObservable<NullResult> Handle(TestCommand command) {
 			var endTime = DateTimeOffset.Now.AddSeconds(2d);
-			return Observable.Interval(TimeSpan.FromSeconds(0.5d))
+			return Observable.Interval(TimeSpan.FromSeconds(0.5d), contextScheduler)
 				.Timestamp()
 				.TakeWhile(t => t.Timestamp < endTime)
-				.ObserveOn(contextScheduler)
 				.Do(d => Debug.Log(d))
 				.Select(_ => NullResult.Default);
-			//return Observable.Return(NullResult.Default).Delay(TimeSpan.FromSeconds(1)).ObserveOn(contextScheduler);
+			//return Observable.Return(NullResult.Default).Delay(TimeSpan.FromSeconds(1), contextScheduler);
 		}
 	}
 }
