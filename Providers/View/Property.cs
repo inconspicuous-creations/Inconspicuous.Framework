@@ -42,6 +42,10 @@ namespace Inconspicuous.Framework {
 			return this;
 		}
 
+		public void Notify() {
+			subject.OnNext(value);
+		}
+
 		public override string ToString() {
 			return value.ToString();
 		}

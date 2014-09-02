@@ -84,22 +84,36 @@ namespace Inconspicuous.Framework {
 			serviceMap[service] = factory;
 		}
 
-		public void RegisterDecorator<TService, TDecorator>() {
-			RegisterDecorator(typeof(TService), typeof(TDecorator));
+		public void RegisterDecorator<TService, TDecorator>(Reuse reuse = Reuse.Transient) {
+			RegisterDecorator(typeof(TService), typeof(TDecorator), reuse);
 		}
 
-		public void RegisterDecorator<TService>(Type decorator) {
-			RegisterDecorator(typeof(TService), decorator);
+		public void RegisterDecorator<TService>(Type decorator, Reuse reuse = Reuse.Transient) {
+			RegisterDecorator(typeof(TService), decorator, reuse);
 		}
 
-		public void RegisterDecorator(Type service, Type decorator) {
+		public void RegisterDecorator(Type service, Type decorator, Reuse reuse = Reuse.Transient) {
 			var originalFactory = serviceMap[service];
 			var constructor = ResolveConstructor(decorator);
 			var parameterTypes = constructor.GetParameters().Select(p => p.ParameterType).ToList();
-			serviceMap[service] = () => {
-				var parameters = parameterTypes.Select(t => t == service ? originalFactory() : Resolve(t)).ToArray();
-				return constructor.Invoke(parameters);
-			};
+			switch(reuse) {
+				case Reuse.Transient:
+					serviceMap[service] = () => {
+						var parameters = parameterTypes.Select(t => t == service ? originalFactory() : Resolve(t)).ToArray();
+						return constructor.Invoke(parameters);
+					};
+					break;
+				case Reuse.Singleton:
+					object instance = null;
+					serviceMap[service] = () => {
+						if(instance == null) {
+							var parameters = parameterTypes.Select(t => t == service ? originalFactory() : Resolve(t)).ToArray();
+							instance = constructor.Invoke(parameters);
+						}
+						return instance;
+					};
+					break;
+			}
 		}
 
 		public TService Resolve<TService>() {

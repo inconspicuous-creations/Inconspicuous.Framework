@@ -8,6 +8,7 @@ namespace Inconspicuous.Framework {
 	[Export(typeof(ILevelManager))]
 	public class LevelManager : ILevelManager {
 		private LevelManagerComponent levelManagerComponent;
+		private bool loadingLevel;
 
 		public LevelManager() {
 			if(GameObject.Find("LevelManager") == null) {
@@ -20,16 +21,21 @@ namespace Inconspicuous.Framework {
 		}
 
 		public IObservable<IContextView> Load(string level) {
-			levelManagerComponent.StopAllCoroutines();
-			levelManagerComponent.StartCoroutine(levelManagerComponent.LoadInBackground(level));
-			return Observable.Create<IContextView>(observer => {
-				var callback = new Action<IContextView>(contextView => {
-					observer.OnNext(contextView);
-					observer.OnCompleted();
+			if(!loadingLevel) {
+				loadingLevel = true;
+				levelManagerComponent.StopAllCoroutines();
+				levelManagerComponent.StartCoroutine(levelManagerComponent.LoadInBackground(level));
+				return Observable.Create<IContextView>(observer => {
+					var callback = new Action<IContextView>(contextView => {
+						loadingLevel = false;
+						observer.OnNext(contextView);
+						observer.OnCompleted();
+					});
+					levelManagerComponent.OnFinished += callback;
+					return Disposable.Create(() => levelManagerComponent.OnFinished -= callback);
 				});
-				levelManagerComponent.OnFinished += callback;
-				return Disposable.Create(() => levelManagerComponent.OnFinished -= callback);
-			});
+			}
+			return Observable.Empty<IContextView>();
 		}
 	}
 
