@@ -5,8 +5,6 @@ using System.Reflection;
 
 namespace Inconspicuous.Framework {
 	public class Container : IContainer {
-		private const int maxSearchDepth = 5;
-
 		private IContainer parent;
 		private List<IContainer> children;
 		private Dictionary<object, Type> genericMap;
@@ -120,7 +118,7 @@ namespace Inconspicuous.Framework {
 			return (TService)Resolve(typeof(TService));
 		}
 
-		public object Resolve(Type service, int depth = 0) {
+		public object Resolve(Type service, ICollection<IContainer> searched = null) {
 			if(serviceMap.ContainsKey(service)) {
 				return serviceMap[service]();
 			} else if(service.IsGenericType && genericMap.ContainsKey(service.GetGenericTypeDefinition())) {
@@ -131,8 +129,10 @@ namespace Inconspicuous.Framework {
 				Func<object> factory = () => Resolve(service.GetGenericArguments().First());
 				Register(service, Activator.CreateInstance(service, new[] { factory }));
 				return Resolve(service);
-			} else if(parent != null && depth < maxSearchDepth) {
-				return parent.Resolve(service, depth + 1);
+			} else if(parent != null && (searched == null || !searched.Contains(this))) {
+				searched = searched ?? new List<IContainer>();
+				searched.Add(this);
+				return parent.Resolve(service, searched);
 			}
 			throw new CustomException("Service not found: " + service);
 		}

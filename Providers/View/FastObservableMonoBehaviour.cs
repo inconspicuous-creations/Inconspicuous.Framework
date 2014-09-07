@@ -291,18 +291,6 @@ namespace Inconspicuous.Framework {
 			return onEnable ?? (onEnable = new FastSubject<Unit>());
 		}
 
-		FastSubject<Unit> onGUI;
-
-		/// <summary>OnGUI is called for rendering and handling GUI events.</summary>
-		public override void OnGUI() {
-			if(onGUI != null) onGUI.OnNext(Unit.Default);
-		}
-
-		/// <summary>OnGUI is called for rendering and handling GUI events.</summary>
-		public IObservable<Unit> OnGUIAsObservable() {
-			return onGUI ?? (onGUI = new FastSubject<Unit>());
-		}
-
 		FastSubject<float> onJointBreak;
 
 		/// <summary>Called when a joint attached to the same game object broke.</summary>

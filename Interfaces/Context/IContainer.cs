@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Inconspicuous.Framework {
 	public enum Reuse {
@@ -19,7 +20,7 @@ namespace Inconspicuous.Framework {
 		void RegisterDecorator<TService>(Type decorator, Reuse reuse = Reuse.Transient);
 		void RegisterDecorator(Type service, Type decorator, Reuse reuse = Reuse.Transient);
 		TService Resolve<TService>();
-		object Resolve(Type service, int depth = 0);
+		object Resolve(Type service, ICollection<IContainer> searched = null);
 		void Inject(object instance);
 	}
 }
