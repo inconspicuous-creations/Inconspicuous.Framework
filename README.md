@@ -139,19 +139,19 @@ This separation of concerns has the following benefits:
 * By using the decorator pattern, you can easily add replay functionality, network synchronization or other features on top of existing handlers or the dispatcher.
 
 ```
-public class OpenPanelCommand : ICommand<NullResult> { }
+public class OpenPanelCommand : ICommand<Unit> { }
 
-[Export(typeof(ICommandHandler<NullResult>))]
-public class OpenPanelCommandHandler : CommandHandler<OpenPanelCommand, NullResult> {
+[Export(typeof(ICommandHandler<Unit>))]
+public class OpenPanelCommandHandler : CommandHandler<OpenPanelCommand, Unit> {
 	private readonly PanelViewModel panelViewModel;
   
 	public OpenPanelCommandHandler(PanelViewModel panelViewModel) {
 		this.panelViewModel = panelViewModel;
 	}
   
-	public override IObservable<NullResult> Handle(OpenPanelCommand command) {
+	public override IObservable<Unit> Handle(OpenPanelCommand command) {
 		panelViewModel.Active = true;
-		return Observable.Return(NullResult.Default);
+		return Observable.Return(Unit.Default);
 	}
 }
 ```
