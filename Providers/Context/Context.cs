@@ -37,12 +37,6 @@ namespace Inconspicuous.Framework {
 							.Select(p => p.CreationPolicy != CreationPolicy.NonShared).First() : true;
 					var service = export.ContractType != null ? export.ContractType : type;
 					container.Register(service, type, singleton ? Reuse.Singleton : Reuse.Transient);
-					if(service.IsGenericType && service.GetGenericTypeDefinition() == typeof(IFactory<>)) {
-						container.Register(service.GetGenericArguments().First(), () => {
-							var factory = container.Resolve(service);
-							return factory.GetType().GetMethod("Create").Invoke(factory, null);
-						});
-					}
 				}
 			}
 		}

@@ -63,6 +63,12 @@ namespace Inconspicuous.Framework {
 						};
 						break;
 				}
+				if(service.IsGenericType && service.GetGenericTypeDefinition() == typeof(IFactory<>)) {
+					Register(service.GetGenericArguments().First(), () => {
+						var factory = Resolve(service);
+						return factory.GetType().GetMethod("Create").Invoke(factory, null);
+					});
+				}
 			}
 		}
 
