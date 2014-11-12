@@ -25,11 +25,13 @@ namespace Inconspicuous.Framework {
 		}
 
 		public Func<GameObjectData, GameObject> Create() {
-			return gameObjectInfo => {
-				var prefab = Resources.Load("Prefabs/" + gameObjectInfo.PrefabName);
+			return gameObjectData => {
+				var prefab = Resources.Load("Prefabs/" + gameObjectData.PrefabName);
 				var gameObject = UnityEngine.Object.Instantiate(prefab) as GameObject;
-				gameObject.name = string.IsNullOrEmpty(gameObjectInfo.Name) ? prefab.name : gameObjectInfo.Name;
-				gameObject.transform.parent = gameObjectInfo.Parent;
+				gameObject.name = string.IsNullOrEmpty(gameObjectData.Name) ? prefab.name : gameObjectData.Name;
+				if(gameObjectData.Parent != null) {
+					gameObject.transform.parent = gameObjectData.Parent;
+				}
 				viewMediationBinder.Mediate(gameObject.GetComponent(typeof(IView)) as IView);
 				return gameObject;
 			};
