@@ -114,34 +114,37 @@ namespace Inconspicuous.Framework {
 			}
 		}
 
-		public TService Resolve<TService>() {
-			return (TService)Resolve(typeof(TService));
+		public TService Resolve<TService>(bool canReturnNull = false) where TService : class {
+			return Resolve(typeof(TService), canReturnNull) as TService;
 		}
 
-		public object Resolve(Type service, ICollection<IContainer> searched = null) {
+		public object Resolve(Type service, bool canReturnNull = false, ICollection<IContainer> searched = null) {
 			if(serviceMap.ContainsKey(service)) {
 				return serviceMap[service]();
 			} else if(service.IsGenericType && genericMap.ContainsKey(service.GetGenericTypeDefinition())) {
 				var implementation = genericMap[service.GetGenericTypeDefinition()].MakeGenericType(service.GetGenericArguments());
 				Register(service, implementation, Reuse.Transient);
-				return Resolve(service);
+				return Resolve(service, canReturnNull);
 			} else if(service.IsGenericType && service.GetGenericTypeDefinition() == typeof(Lazy<>)) {
 				Func<object> factory = () => Resolve(service.GetGenericArguments().First());
 				Register(service, Activator.CreateInstance(service, new[] { factory }));
-				return Resolve(service);
+				return Resolve(service, canReturnNull);
 			} else if(parent != null && (searched == null || !searched.Contains(this))) {
 				searched = searched ?? new List<IContainer>();
 				searched.Add(this);
-				return parent.Resolve(service, searched);
+				return parent.Resolve(service, canReturnNull, searched);
 			}
-			throw new CustomException("Service not found: " + service);
+			if(!canReturnNull) {
+				throw new CustomException("Service not found: " + service);
+			}
+			return null;
 		}
 
 		public void Inject(object instance) {
 			var methods = instance.GetType().GetMethods().Where(m => m.GetCustomAttributes(typeof(InjectAttribute), false).Any()).ToList();
 			foreach(var method in methods) {
 				var parameterTypes = method.GetParameters().Select(p => p.ParameterType).ToList();
-				var parameters = parameterTypes.Select(t => Resolve(t)).ToArray();
+				var parameters = parameterTypes.Select(t => Resolve(t, true)).ToArray();
 				method.Invoke(instance, parameters);
 			}
 		}

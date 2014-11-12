@@ -19,8 +19,8 @@ namespace Inconspicuous.Framework {
 		void RegisterDecorator<TService, TDecorator>(Reuse reuse = Reuse.Transient);
 		void RegisterDecorator<TService>(Type decorator, Reuse reuse = Reuse.Transient);
 		void RegisterDecorator(Type service, Type decorator, Reuse reuse = Reuse.Transient);
-		TService Resolve<TService>();
-		object Resolve(Type service, ICollection<IContainer> searched = null);
+		TService Resolve<TService>(bool canReturnNull = false) where TService : class;
+		object Resolve(Type service, bool canReturnNull = false, ICollection<IContainer> searched = null);
 		void Inject(object instance);
 	}
 }
