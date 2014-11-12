@@ -1,3 +1,5 @@
+using System;
+
 namespace Inconspicuous.Framework.Example.Common {
 	//[Export(typeof(IApplicationManager))]
 	public class ExampleApplicationManager : ApplicationManager {
@@ -9,8 +11,8 @@ namespace Inconspicuous.Framework.Example.Common {
 			get { return true; }
 		}
 
-		public override string Version {
-			get { return "1.0.0"; }
+		public override Version Version {
+			get { return new Version(1, 0, 0); }
 		}
 	}
 }

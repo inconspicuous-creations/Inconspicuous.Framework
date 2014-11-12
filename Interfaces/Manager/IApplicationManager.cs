@@ -1,6 +1,8 @@
+using System;
+
 namespace Inconspicuous.Framework {
 	public interface IApplicationManager : INamed {
 		bool DebugMode { get; }
-		string Version { get; }
+		Version Version { get; }
 	}
 }

@@ -1,19 +1,15 @@
+using System;
+
 namespace Inconspicuous.Framework {
 	public abstract class ApplicationManager : IApplicationManager {
-		public virtual string Name {
-			get { return "Unnamed Project"; }
-		}
+		public abstract string Name { get; }
 
 		public virtual string FullName {
 			get { return Name + " - " + Version; }
 		}
 
-		public virtual bool DebugMode {
-			get { return true; }
-		}
+		public abstract bool DebugMode { get; }
 
-		public virtual string Version {
-			get { return "1.0.0"; }
-		}
+		public abstract Version Version { get; }
 	}
 }
