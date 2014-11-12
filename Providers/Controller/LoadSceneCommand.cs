@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using UniRx;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Inconspicuous.Framework {
 	public class LoadSceneCommand : ICommand<IContextView> {
@@ -17,16 +19,19 @@ namespace Inconspicuous.Framework {
 		}
 
 		public override IObservable<IContextView> Handle(LoadSceneCommand command) {
-			var observable = levelManager.Load(command.SceneName);
-			observable.Subscribe(contextView => {
+			return levelManager.Load(command.SceneName).Do(contextView => {
 				var cv = contextView as ContextView;
 				if(cv != null && command.SubContexts != null) {
 					foreach(var additionalContext in command.SubContexts) {
 						cv.SubContexts.Add(additionalContext);
 					}
 				}
+				try {
+					EventSystem.current = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+				} catch {
+					// Do nothing.
+				}
 			});
-			return observable;
 		}
 	}
 }

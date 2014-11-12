@@ -8,7 +8,6 @@ namespace Inconspicuous.Framework {
 	[Export(typeof(ILevelManager))]
 	public class LevelManager : ILevelManager {
 		private LevelManagerComponent levelManagerComponent;
-		private bool loadingLevel;
 
 		public LevelManager() {
 			if(GameObject.Find("LevelManager") == null) {
@@ -21,31 +20,35 @@ namespace Inconspicuous.Framework {
 		}
 
 		public IObservable<IContextView> Load(string level) {
-			if(!loadingLevel) {
-				loadingLevel = true;
-				levelManagerComponent.StopAllCoroutines();
-				levelManagerComponent.StartCoroutine(levelManagerComponent.LoadInBackground(level));
+			if(!levelManagerComponent.LoadingLevel) {
+				levelManagerComponent.StartCoroutine_Auto(levelManagerComponent.LoadInBackground(level));
 				return Observable.Create<IContextView>(observer => {
-					var callback = new Action<IContextView>(contextView => {
-						loadingLevel = false;
-						observer.OnNext(contextView);
-						observer.OnCompleted();
-					});
+					var callback = new Action<IContextView>(contextView => observer.OnNext(contextView));
+					var ready = new Action(() => observer.OnCompleted());
 					levelManagerComponent.OnFinished += callback;
-					return Disposable.Create(() => levelManagerComponent.OnFinished -= callback);
+					levelManagerComponent.OnReady += ready;
+					return Disposable.Create(() => {
+						levelManagerComponent.OnFinished -= callback;
+						levelManagerComponent.OnReady -= ready;
+					});
 				});
 			}
-			return Observable.Empty<IContextView>();
+			return Observable.Return<IContextView>(null);
 		}
 	}
 
 	public class LevelManagerComponent : MonoBehaviour {
 		public event Action<IContextView> OnFinished;
+		public event Action OnReady;
+
 		private float alpha;
 		private Texture2D blackTexture;
 
+		public bool LoadingLevel { get; private set; }
+
 		public void Awake() {
 			OnFinished = delegate { };
+			OnReady = delegate { };
 			blackTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
 			blackTexture.SetPixel(0, 0, Color.blue);
 		}
@@ -58,6 +61,7 @@ namespace Inconspicuous.Framework {
 		}
 
 		public IEnumerator LoadInBackground(string level) {
+			LoadingLevel = true;
 			float fadeTime = 0.5f;
 			float elapsedTime = 0f;
 			while(elapsedTime <= fadeTime) {
@@ -70,19 +74,31 @@ namespace Inconspicuous.Framework {
 			//}
 			yield return Application.LoadLevelAsync(level);
 			GameObject gameObject;
+			var counter = 0f;
 			do {
-				gameObject = GameObject.Find("_" + level + "ContextView");
+				counter += Time.deltaTime;
+				gameObject = GameObject.Find("_" + Application.loadedLevelName + "ContextView");
+				if(counter > 3f) {
+					break;
+				}
+				yield return null;
 			} while(gameObject == null);
-			var contextView = gameObject.GetComponent(typeof(IContextView)) as IContextView;
-			OnFinished(contextView);
-			var concreteContextView = contextView as ContextView;
-			if(concreteContextView != null) {
-				var started = false;
-				concreteContextView.UpdateAsObservable()
-					.Skip(10).First()
-					.Subscribe(_ => started = true);
-				while(!started) {
-					yield return null;
+			if(gameObject != null) {
+				var contextView = gameObject.GetComponent(typeof(IContextView)) as IContextView;
+				OnFinished(contextView);
+				var concreteContextView = contextView as ContextView;
+				if(concreteContextView != null) {
+					var started = false;
+					concreteContextView.UpdateAsObservable()
+						.Skip(10).First()
+						.Subscribe(_ => started = true);
+					while(!started) {
+						counter += Time.deltaTime;
+						if(counter > 3f) {
+							break;
+						}
+						yield return null;
+					}
 				}
 			}
 			elapsedTime = 0f;
@@ -92,6 +108,8 @@ namespace Inconspicuous.Framework {
 				alpha = Mathf.Clamp01(1f - (elapsedTime / fadeTime));
 				yield return null;
 			}
+			LoadingLevel = false;
+			OnReady();
 		}
 	}
 }
