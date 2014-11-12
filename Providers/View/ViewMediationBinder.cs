@@ -28,13 +28,11 @@ namespace Inconspicuous.Framework {
 						mediatorTypeMap[type] = mediatorType;
 					}
 					try {
-						var mediator = container.Resolve(mediatorType) as IMediator;
+						var mediator = container.Resolve(mediatorType, true) as IMediator;
 						if(mediator != null) {
 							view.OnDispose += () => mediator.Dispose();
 							mediator.Mediate(view);
 						}
-					} catch(CustomException _) {
-						// Do nothing.
 					} catch(Exception e) {
 						UnityEngine.Debug.LogException(e);
 					}
