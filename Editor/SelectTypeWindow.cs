@@ -87,6 +87,15 @@ namespace Inconspicuous.Framework {
 
 		private List<string> GetAllTypes() {
 			var objectTypes = AppDomain.CurrentDomain.GetAssemblies()
+				.Where(a => {
+					try {
+						a.GetTypes();
+					} catch {
+						return false;
+					}
+					return true;
+
+				})
 				.SelectMany(a => a.GetTypes())
 				//.Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.Contains("UnityEngine"))
 				.Where(t => searchType != null || typeof(UnityEngine.Object).IsAssignableFrom(t))
