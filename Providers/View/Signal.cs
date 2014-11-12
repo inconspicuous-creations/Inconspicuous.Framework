@@ -9,7 +9,7 @@ namespace Inconspicuous.Framework {
 		private ISubject<T> subject;
 
 		public Signal() {
-			subject = new FastSubject<T>();
+			subject = new SuperFastSubject<T>();
 		}
 
 		public void Dispatch() {
