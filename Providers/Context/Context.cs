@@ -29,7 +29,7 @@ namespace Inconspicuous.Framework {
 		}
 
 		protected void RegisterExports() {
-			var types = GetType().Assembly.GetTypes().Where(t => t.GetCustomAttributes(typeof(ExportAttribute), true).Any()).ToList();
+			var types = GetType().Assembly.GetExportedTypes().Where(t => t.GetCustomAttributes(typeof(ExportAttribute), true).Any()).ToList();
 			foreach(var type in types) {
 				foreach(var export in type.GetCustomAttributes(typeof(ExportAttribute), true).Cast<ExportAttribute>()) {
 					var singleton = type.GetCustomAttributes(typeof(PartCreationPolicyAttribute), true).Any() ?
