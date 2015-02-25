@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15FAE9F5-24A1-4B02-B264-0D0AD021E433}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Inconspicuous.Framework</RootNamespace>
+    <AssemblyName>Inconspicuous.Framework</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UniRx">
+      <HintPath>..\..\UniRx-master\obj\Debug\UniRx.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\4.6.3\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Example\00 - Main\ExampleApplicationManager.cs" />
+    <Compile Include="Example\01 - Test\Context\TestContext.cs" />
+    <Compile Include="Example\01 - Test\Controller\StartCommand.cs" />
+    <Compile Include="Example\01 - Test\Controller\TestCommand.cs" />
+    <Compile Include="Example\01 - Test\View\TestMediator.cs" />
+    <Compile Include="Example\01 - Test\View\TestView.cs" />
+    <Compile Include="Example\01 - Test\View\TestViewModel.cs" />
+    <Compile Include="Interfaces\Common\IDataObjectContainer.cs" />
+    <Compile Include="Interfaces\Common\IFactory.cs" />
+    <Compile Include="Interfaces\Common\INamed.cs" />
+    <Compile Include="Interfaces\Common\IOwnable.cs" />
+    <Compile Include="Interfaces\Common\IRepository.cs" />
+    <Compile Include="Interfaces\Context\IContainer.cs" />
+    <Compile Include="Interfaces\Context\IContext.cs" />
+    <Compile Include="Interfaces\Context\IContextScheduler.cs" />
+    <Compile Include="Interfaces\Context\IMainContextConfiguration.cs" />
+    <Compile Include="Interfaces\Context\IContextView.cs" />
+    <Compile Include="Interfaces\Controller\ICommand.cs" />
+    <Compile Include="Interfaces\Controller\ICommandDispatcher.cs" />
+    <Compile Include="Interfaces\Controller\ICommandHandler.cs" />
+    <Compile Include="Interfaces\Manager\IApplicationManager.cs" />
+    <Compile Include="Interfaces\Manager\ILevelManager.cs" />
+    <Compile Include="Interfaces\View\IMediator.cs" />
+    <Compile Include="Interfaces\View\IView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\Common\CustomException.cs" />
+    <Compile Include="Providers\Common\ExportImportAttributes.cs" />
+    <Compile Include="Providers\Common\GameObjectFactory.cs" />
+    <Compile Include="Providers\Common\InjectAttribute.cs" />
+    <Compile Include="Providers\Common\Lazy.cs" />
+    <Compile Include="Providers\Common\Repository.cs" />
+    <Compile Include="Providers\Common\SceneAttribute.cs" />
+    <Compile Include="Providers\Common\TypePropertyAttribute.cs" />
+    <Compile Include="Providers\Context\Container.cs" />
+    <Compile Include="Providers\Context\Context.cs" />
+    <Compile Include="Providers\Context\ContextScheduler.cs" />
+    <Compile Include="Providers\Context\ContextView.cs" />
+    <Compile Include="Providers\Context\CustomContextView.cs" />
+    <Compile Include="Providers\Context\MainContext.cs" />
+    <Compile Include="Providers\Context\MainContextView.cs" />
+    <Compile Include="Providers\Controller\CommandDispatcher.cs" />
+    <Compile Include="Providers\Controller\CommandHandler.cs" />
+    <Compile Include="Providers\Controller\LoadSceneCommand.cs" />
+    <Compile Include="Providers\Controller\MacroCommand.cs" />
+    <Compile Include="Providers\Controller\ObservableQueue.cs" />
+    <Compile Include="Providers\Controller\QuitApplicationCommand.cs" />
+    <Compile Include="Providers\Controller\RestartSceneCommand.cs" />
+    <Compile Include="Providers\Controller\StartCommand.cs" />
+    <Compile Include="Providers\Manager\ApplicationManager.cs" />
+    <Compile Include="Providers\Manager\LevelManager.cs" />
+    <Compile Include="Providers\Utility\UniRxExtensions.cs" />
+    <Compile Include="Providers\ViewModel\CollectionProperty.cs" />
+    <Compile Include="Providers\ViewModel\Property.cs" />
+    <Compile Include="Providers\ViewModel\Signal.cs" />
+    <Compile Include="Providers\ViewModel\ViewModel.cs" />
+    <Compile Include="Providers\View\Mediator.cs" />
+    <Compile Include="Providers\View\View.cs" />
+    <Compile Include="Providers\View\ViewMediationBinder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="diagram.graffle" />
+    <None Include="Example\00 - Main\Main.unity" />
+    <None Include="Example\01 - Test\Context\Test.unity" />
+    <None Include="LICENSE.md" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="diagram.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y $(TargetPath) "C:\Users\Yu\Documents\Projects\inconspicuous\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
