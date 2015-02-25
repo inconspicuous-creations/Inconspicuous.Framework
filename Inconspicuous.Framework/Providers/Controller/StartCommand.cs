@@ -10,7 +10,6 @@ namespace Inconspicuous.Framework {
 	public class StartCommandHandler : CommandHandler<StartCommand, Unit> {
 		private readonly IApplicationManager applicationManager;
 		private readonly ICommandDispatcher commandDispatcher;
-		private readonly IContextView contextView;
 		private readonly IContextScheduler contextScheduler;
 
 		public StartCommandHandler(

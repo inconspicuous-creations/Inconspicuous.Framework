@@ -33,12 +33,6 @@ namespace Inconspicuous.Framework {
 			queue.Clear();
 		}
 
-		protected IDisposable Start(IObservable<T> observable) {
-			return observable
-				.ObserveOn(scheduler)
-				.Subscribe(this);
-		}
-
 		public void OnCompleted() {
 			if(queue.Count > 0) {
 				queue.RemoveAt(0);
@@ -71,6 +65,12 @@ namespace Inconspicuous.Framework {
 		public void Dispose() {
 			subject.Dispose();
 			disposable.Disposable = null;
+		}
+
+		private IDisposable Start(IObservable<T> observable) {
+			return observable
+				.ObserveOn(scheduler)
+				.Subscribe(this);
 		}
 	}
 }
