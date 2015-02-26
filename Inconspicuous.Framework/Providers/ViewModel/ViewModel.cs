@@ -1,8 +1,14 @@
+using System;
 using System.ComponentModel;
 
 namespace Inconspicuous.Framework {
 	public abstract class ViewModel : INotifyPropertyChanged {
-		public event PropertyChangedEventHandler PropertyChanged = delegate { };
+		private PropertyChangedEventHandler propertyChanged;
+
+		public event PropertyChangedEventHandler PropertyChanged {
+			add { propertyChanged += value; }
+			remove { propertyChanged -= value; }
+		}
 
 		protected void SetProperty<T>(ref T property, T value, string name) {
 			property = value;
@@ -10,7 +16,9 @@ namespace Inconspicuous.Framework {
 		}
 
 		protected void OnPropertyChanged(string name) {
-			PropertyChanged(this, new PropertyChangedEventArgs(name));
+			if(propertyChanged != null) {
+				propertyChanged(this, new PropertyChangedEventArgs(name));
+			}
 		}
 	}
 }
