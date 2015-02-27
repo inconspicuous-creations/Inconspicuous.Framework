@@ -39,7 +39,7 @@ namespace Inconspicuous.Framework {
 		}
 
 		public static CompositeDisposable TryGetOrClearFromMap<T>(this Dictionary<T, CompositeDisposable> disposables, T key) {
-			CompositeDisposable disposable = null;
+			var disposable = default(CompositeDisposable);
 			disposables.TryGetValue(key, out disposable);
 			if(disposable != null) {
 				disposable.Clear();

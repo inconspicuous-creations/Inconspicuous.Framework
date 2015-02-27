@@ -54,7 +54,6 @@
     <Compile Include="Example\01 - Test\View\TestMediator.cs" />
     <Compile Include="Example\01 - Test\View\TestView.cs" />
     <Compile Include="Example\01 - Test\View\TestViewModel.cs" />
-    <Compile Include="Interfaces\Common\IDataObjectContainer.cs" />
     <Compile Include="Interfaces\Common\IFactory.cs" />
     <Compile Include="Interfaces\Common\INamed.cs" />
     <Compile Include="Interfaces\Common\IOwnable.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="Providers\Common\GameObjectFactory.cs" />
     <Compile Include="Providers\Common\InjectAttribute.cs" />
     <Compile Include="Providers\Common\Lazy.cs" />
-    <Compile Include="Providers\Common\Repository.cs" />
     <Compile Include="Providers\Common\SceneAttribute.cs" />
     <Compile Include="Providers\Common\TypePropertyAttribute.cs" />
     <Compile Include="Providers\Context\Container.cs" />
@@ -103,6 +101,7 @@
     <Compile Include="Providers\ViewModel\Signal.cs" />
     <Compile Include="Providers\ViewModel\ViewModel.cs" />
     <Compile Include="Providers\View\Mediator.cs" />
+    <Compile Include="Providers\View\ObservableView.cs" />
     <Compile Include="Providers\View\View.cs" />
     <Compile Include="Providers\View\ViewMediationBinder.cs" />
   </ItemGroup>
@@ -119,7 +118,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y $(TargetPath) "$(SolutionDir)\..\Inconspicuous.Integration\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>xcopy $(TargetPath) "$(SolutionDir)\..\Inconspicuous.Integration\$(TargetFileName)" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

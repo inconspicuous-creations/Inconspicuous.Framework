@@ -7,17 +7,17 @@ namespace Inconspicuous.Framework {
 	[Export(typeof(ICommandDispatcher))]
 	public class CommandDispatcher : ICommandDispatcher {
 		private readonly IContainer container;
-		private Dictionary<Type, ICommandHandler> handlerMap;
-		private Dictionary<Type, ISubject<object>> observerMap;
+		private readonly Dictionary<Type, ICommandHandler> handlerMap;
+		private readonly Dictionary<Type, ISubject<object>> observerMap;
 
 		public CommandDispatcher(IContainer container) {
 			this.container = container;
-			handlerMap = new Dictionary<Type, ICommandHandler>();
-			observerMap = new Dictionary<Type, ISubject<object>>();
+			this.handlerMap = new Dictionary<Type, ICommandHandler>();
+			this.observerMap = new Dictionary<Type, ISubject<object>>();
 		}
 
 		public IObservable<object> Dispatch(ICommand command) {
-			ICommandHandler commandHandler;
+			var commandHandler = default(ICommandHandler);
 			if(!handlerMap.TryGetValue(command.GetType(), out commandHandler)) {
 				commandHandler = ResolveHandlerForCommand(command);
 			}

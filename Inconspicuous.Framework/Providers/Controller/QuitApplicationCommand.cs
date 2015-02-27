@@ -1,23 +1,30 @@
+using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using UniRx;
+using UnityEngine;
 
 namespace Inconspicuous.Framework {
 	public class QuitApplicationCommand : ICommand<Unit> { }
 
 	[Export(typeof(ICommandHandler<QuitApplicationCommand, Unit>))]
 	public class QuitApplicationCommandHandler : CommandHandler<QuitApplicationCommand, Unit> {
-#if UNITY_WEBPLAYER
-		private readonly static string webPlayerQuitUrl = "http://www.inconspicuous.no";
-#endif
+		private const string webPlayerQuitUrl = "http://www.inconspicuous.no";
 
 		public override IObservable<Unit> Handle(QuitApplicationCommand macroCommand) {
-#if UNITY_EDITOR
-			UnityEditor.EditorApplication.isPlaying = false;
-#elif UNITY_WEBPLAYER
-			UnityEngine.Application.OpenURL(webPlayerQuitUrl);
-#else
-			UnityEngine.Application.Quit();
-#endif
+			if(Application.isEditor) {
+				var editorApplicationType = AppDomain.CurrentDomain.GetAssemblies()
+					.Select(x => x.GetType("UnityEditor.EditorApplication"))
+					.Where(x => x != null)
+					.FirstOrDefault();
+				if(editorApplicationType != null) {
+					editorApplicationType.GetProperty("isPlaying").SetValue(null, false, null);
+				}
+			} else if(Application.isWebPlayer) {
+				Application.OpenURL(webPlayerQuitUrl);
+			} else {
+				Application.Quit();
+			}
 			return Observable.Return(Unit.Default);
 		}
 	}

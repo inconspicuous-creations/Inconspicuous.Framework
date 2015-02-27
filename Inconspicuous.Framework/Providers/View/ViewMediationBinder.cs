@@ -9,31 +9,26 @@ namespace Inconspicuous.Framework {
 	[Export(typeof(IViewMediationBinder))]
 	public class ViewMediationBinder : IViewMediationBinder {
 		private readonly IContainer container;
-		private IDictionary<Type, Type> mediatorTypeMap;
+		private readonly IDictionary<Type, Type> mediatorTypeMap;
 
 		public ViewMediationBinder(IContainer container) {
 			this.container = container;
-			mediatorTypeMap = new Dictionary<Type, Type>();
+			this.mediatorTypeMap = new Dictionary<Type, Type>();
 		}
 
 		public void Mediate(IView rootView) {
 			if(rootView != null) {
-				var views = rootView.GameObject.transform.GetComponentsInChildren(typeof(IView), true).Cast<IView>().ToList();
-				foreach(var view in views) {
+				foreach(var view in rootView.GameObject.transform.GetComponentsInChildren(typeof(IView), true).Cast<IView>().ToArray()) {
 					container.Inject(view);
 					var type = view.GetType();
-					Type mediatorType;
+					var mediatorType = default(Type);
 					if(!mediatorTypeMap.TryGetValue(type, out mediatorType)) {
 						mediatorType = typeof(IMediator<>).MakeGenericType(view.GetType());
 						mediatorTypeMap[type] = mediatorType;
 					}
-					try {
-						var mediator = container.Resolve(mediatorType, true) as IMediator;
-						if(mediator != null) {
-							mediator.Mediate(view);
-						}
-					} catch(Exception e) {
-						UnityEngine.Debug.LogException(e);
+					var mediator = container.Resolve(mediatorType, true) as IMediator;
+					if(mediator != null) {
+						mediator.Mediate(view);
 					}
 				}
 			}

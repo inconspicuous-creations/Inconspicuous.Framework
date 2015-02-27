@@ -3,14 +3,15 @@ using UniRx;
 using UnityEngine;
 
 namespace Inconspicuous.Framework {
-	public abstract class View : MonoBehaviour, IView {
+	public abstract class ObservableView : ObservableMonoBehaviour, IView {
 		private readonly CompositeDisposable disposable = new CompositeDisposable();
 
 		public GameObject GameObject {
 			get { return gameObject; }
 		}
 
-		public virtual void OnDestroy() {
+		public override void OnDestroy() {
+			base.OnDestroy();
 			Dispose();
 		}
 
@@ -28,7 +29,7 @@ namespace Inconspicuous.Framework {
 			}
 		}
 
-		public static implicit operator CompositeDisposable(View view) {
+		public static implicit operator CompositeDisposable(ObservableView view) {
 			return view.disposable;
 		}
 	}

@@ -7,16 +7,16 @@ using UnityEngine;
 namespace Inconspicuous.Framework {
 	[Export(typeof(ILevelManager))]
 	public class LevelManager : ILevelManager {
-		private LevelManagerComponent levelManagerComponent;
+		private readonly LevelManagerComponent levelManagerComponent;
 
 		public LevelManager() {
-			if(GameObject.Find("LevelManager") == null) {
-				var obj = new GameObject("LevelManager");
+			var obj = GameObject.Find("LevelManager");
+			if(obj == null) {
+				obj = new GameObject("LevelManager");
 				levelManagerComponent = obj.AddComponent<LevelManagerComponent>();
-				UnityEngine.Object.DontDestroyOnLoad(obj);
-			} else {
-				levelManagerComponent = GameObject.Find("LevelManager").GetComponent<LevelManagerComponent>();
 			}
+			UnityEngine.Object.DontDestroyOnLoad(obj);
+			this.levelManagerComponent = obj.GetComponent<LevelManagerComponent>();
 		}
 
 		public IObservable<IContextView> Load(string level) {
