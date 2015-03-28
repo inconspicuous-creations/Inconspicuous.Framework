@@ -23,12 +23,18 @@ namespace Inconspicuous.Framework {
 					var type = view.GetType();
 					var mediatorType = default(Type);
 					if(!mediatorTypeMap.TryGetValue(type, out mediatorType)) {
-						mediatorType = typeof(IMediator<>).MakeGenericType(view.GetType());
-						mediatorTypeMap[type] = mediatorType;
+						try {
+							mediatorType = typeof(IMediator<>).MakeGenericType(view.GetType());
+							mediatorTypeMap[type] = mediatorType;
+						} catch {
+							mediatorTypeMap[type] = null;
+						}
 					}
-					var mediator = container.Resolve(mediatorType, true) as IMediator;
-					if(mediator != null) {
-						mediator.Mediate(view);
+					if(mediatorType != null) {
+						var mediator = container.Resolve(mediatorType, true) as IMediator;
+						if(mediator != null) {
+							mediator.Mediate(view);
+						}
 					}
 				}
 			}
