@@ -47,13 +47,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Example\00 - Main\ExampleApplicationManager.cs" />
-    <Compile Include="Example\01 - Test\Context\TestContext.cs" />
-    <Compile Include="Example\01 - Test\Controller\StartCommand.cs" />
-    <Compile Include="Example\01 - Test\Controller\TestCommand.cs" />
-    <Compile Include="Example\01 - Test\View\TestMediator.cs" />
-    <Compile Include="Example\01 - Test\View\TestView.cs" />
-    <Compile Include="Example\01 - Test\View\TestViewModel.cs" />
     <Compile Include="Interfaces\Common\IFactory.cs" />
     <Compile Include="Interfaces\Common\INamed.cs" />
     <Compile Include="Interfaces\Common\IOwnable.cs" />
@@ -107,8 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="diagram.graffle" />
-    <None Include="Example\00 - Main\Main.unity" />
-    <None Include="Example\01 - Test\Context\Test.unity" />
     <None Include="LICENSE.md" />
     <None Include="README.md" />
   </ItemGroup>
