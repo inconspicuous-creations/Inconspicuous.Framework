@@ -14,7 +14,7 @@ Example project can be found here: [Inconspicuous.Framework.Example](https://git
 * DI container with support for open generics and decorators that works with AOT-only devices.
 * View mediation and view models to separate view logic and business logic.
 * Support for multiple contexts in one scene and/or loading sub-contexts from external scenes.
-* Rx-powered command system that allow type-safe processing of asynchronous events and results.
+* Rx-powered command system that allow type-safe processing of asynchronous events.
 
 ### Architecture
 
@@ -120,6 +120,21 @@ public class TestContext : Context {
 CustomContextView also allows you to specify any number of sub-contexts to initialize as dependencies (ie. before the main Context initializes). If a Context is going to be used as a sub-context, it should be defined in a different scene, be part of the build pipeline and have the `[Scene("<Name>")]` attribute specified. If the dependency graph of the application requires some implementation that can't be found in the main context, it will defer the search to any of its sub-contexts. You can not have more than one sub-context of the same type.
 
 #### Context Configuration
+
+The context is configured with bindings the `IContainer` object. Basic usage looks like this: 
+
+```
+container.Register<IService, MyWebService>(Reuse.Singleton);
+```
+
+You can also use MEF-style `Export`-attributes that auto-register with all contexts.
+
+```
+[Export]
+public class TestViewModel { ... }
+```
+
+##### Default Context Configuration
 
 The following will register all of Inconspicuous.Framework's default providers with the context, as seen in the example above.
 
