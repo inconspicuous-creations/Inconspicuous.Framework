@@ -36,7 +36,7 @@ Example project can be found here: [Inconspicuous.Framework.Example](https://git
 
 The View is a component that should be quite familiar to most Unity3D developers. Views inherit MonoBehaviour, meaning they are attachable to any game object. Views are the "outer-most" layer of your program that the user interfaces with. They generally connect with the user input (keys, buttons, mouse, touch screen) and respond to changes in the program by displaying fancy animations, text or sound. Just like MonoBehaviours, Views can't have constructors, and as such must rely on method-injection using the `[Inject]`-attribute.
 
-```
+```csharp
 public class PanelView : View {
 	public Subject<Unit> CloseSubject { get; private set; }
 
@@ -65,7 +65,7 @@ public class PanelView : View {
 
 The Mediator is a thin layer between the view and the deeper layers of the program. The View is often subject to a lot of changes, and the purpose of the mediator is to isolate these changes so they don't propagate and cause bugs deeper into the "core" of the program. This example shows it usage in conjunction with a view model:
 
-```
+```csharp
 [Export(typeof(IMediator<PanelView>))] // Auto-wiring, MEF-style.
 [PartCreationPolicy(CreationPolicy.NonShared)]
 public class PanelMediator : Mediator<PanelView> {
@@ -86,7 +86,7 @@ public class PanelMediator : Mediator<PanelView> {
 
 A ViewModel is a reactive model that implements `INotifyPropertyChanged` and one or more `ObservableCollection<T>`. The ViewModel is optional, but can be very helpful in coordinating the input/output of multiple views that display the same information or operate on the same model.
 
-```
+```csharp
 [Export]
 public PanelViewModel : ViewModel {
 	private bool active;
@@ -102,7 +102,7 @@ public PanelViewModel : ViewModel {
 
 The Context is the main entry point that takes care of all interface-to-implementation bindings and can optionally run some startup logic. The ContextView is simply a view that initializes a Context at the start of the program. The ContextView should be a root game object named `_<Name>ContextView` that contains all other objects in the scene. CustomContextView and MainContextView are general-purpose ContextView that allows you to specify any context to initialize through the inspector.
 
-```
+```csharp
 [Scene("Test")]
 public class TestContext : Context {
 	public TestContext(IContextView contextView, params Context[] subContexts)
@@ -121,15 +121,15 @@ CustomContextView also allows you to specify any number of sub-contexts to initi
 
 #### Context Configuration
 
-The context is configured with bindings the `IContainer` object. Basic usage looks like this: 
+The context is configured by adding bindings to the `IContainer` object. Basic usage looks like this: 
 
-```
+```csharp
 container.Register<IService, MyWebService>(Reuse.Singleton);
 ```
 
 You can also use MEF-style `Export`-attributes that auto-register with all contexts.
 
-```
+```csharp
 [Export]
 public class TestViewModel { ... }
 ```
@@ -138,7 +138,7 @@ public class TestViewModel { ... }
 
 The following will register all of Inconspicuous.Framework's default providers with the context, as seen in the example above.
 
-```
+```csharp
 ContextConfiguration.Default.Configure(container);
 ```
 
@@ -146,7 +146,7 @@ ContextConfiguration.Default.Configure(container);
 
 By the default, the ContextView (or any of it's children) are not mediated. View mediation can be performed by executing the following once all required mediators are registered with the context:
 
-```
+```csharp
 container.Resolve<IViewMediationBinder>().Mediate(contextView);
 ```
 
@@ -164,7 +164,7 @@ This separation of concerns has the following benefits:
 * When the same command is executed in different contexts, it may be handled differently (eg. for client/server architectures) or not at all (eg. mocking during development).
 * By using the decorator pattern, you can easily add replay functionality, network synchronization or other features on top of existing handlers or the dispatcher.
 
-```
+```csharp
 public class OpenPanelCommand : ICommand<Unit> { }
 
 [Export(typeof(ICommandHandler<Unit>))]
@@ -186,7 +186,7 @@ public class OpenPanelCommandHandler : CommandHandler<OpenPanelCommand, Unit> {
 
 Commands can also return results. Both CommandHandler and CommandDispatcher are designed in such a way that this process is completely type-safe and takes full advantage of Rx by returning an `IObservable<TResult>`. The framework includes some common commands that are useful for just about every type of program:
 
-```
+```csharp
 commandDispatcher.Dispatch(new LoadSceneCommand { SceneName = "Test" }).Subscribe();
 commandDispatcher.Dispatch(new RestartSceneCommand()).Subscribe();
 commandDispatcher.Dispatch(new QuitApplicationCommand()).Subscribe();
@@ -196,7 +196,7 @@ commandDispatcher.Dispatch(new QuitApplicationCommand()).Subscribe();
 
 A common use case for commands is to execute multiple sub-commands in succession, either in parallel (all commands are started immediately) or serially (the consequent command is not executed before the previous has finished). To help with this, the framework includes a MacroCommand and MacroCommandHandler. A MacroCommand is simply a list of Commands and a type that specifies whether the MacroCommand should execute in parallel or in sequence. In both cases, all results are aggregated and returned once all sub-commands have completed.
 
-```
+```csharp
 commandDispatcher.Dispatch(new MacroCommand(MacroCommandType.Sequence) {
 	new LoginCommand { Email = "john@doe.com", Password = "johndoe" },
 	new OpenPanelCommand()
