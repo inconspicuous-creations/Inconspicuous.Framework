@@ -22,9 +22,9 @@ The library has been tested and confirmed to work with Unity 4.6+ on PC, Mac and
 
 * [Views](#views)
 * [Mediators and ViewModels](#mediators-and-viewmodels)
-* [Context and ContextViews](#context-and-contextviews)
+* [Context and ContextViews](#contexts-and-contextviews)
   * [Context Configuration](#context-configuration)
-  * [Context Configuration](#context-configuration)
+  * [View Mediation](#view-mediation)
 * [Commands, CommandHandlers and the CommandDispatcher](#commands-commandHandlers-and-the-commandDispatcher)
   * [Macro Commands](#macro-commands)
 
