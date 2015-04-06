@@ -82,7 +82,7 @@ public class PanelMediator : Mediator<PanelView> {
 }
 ```
 
-A ViewModel is a reactive model that implements `INotifyPropertyChanged` and one or more `ObservableCollection\<T\>`. The ViewModel is optional, but can be very helpful in coordinating the input/output of multiple views that display the same information or operate on the same model.
+A ViewModel is a reactive model that implements `INotifyPropertyChanged` and one or more `ObservableCollection<T>`. The ViewModel is optional, but can be very helpful in coordinating the input/output of multiple views that display the same information or operate on the same model.
 
 ```
 [Export]
