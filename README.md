@@ -27,7 +27,7 @@ Example project can be found here: [Inconspicuous.Framework.Example](https://git
 * [Context and ContextViews](#contexts-and-contextviews)
   * [Context Configuration](#context-configuration)
   * [View Mediation](#view-mediation)
-* [Commands, CommandHandlers and the CommandDispatcher](#commands-commandHandlers-and-the-commandDispatcher)
+* [Commands, CommandHandlers and the CommandDispatcher](#commands-commandhandlers-and-the-commanddispatcher)
   * [Macro Commands](#macro-commands)
 
 ## Documentation
