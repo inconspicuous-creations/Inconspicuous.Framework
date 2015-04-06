@@ -3,7 +3,9 @@ Inconspicuous.Framework
 
 ## Overview
 
-Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern patterns and solutions. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of IoC, DI and MVCVM. The library has been tested and confirmed to work with Unity 4.6+ on PC, Mac and IOS (not tested with IL2CPP).
+Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern patterns and solutions. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of IoC, DI and MVCVM.
+
+The library has been tested and confirmed to work with Unity 4.6+ on PC, Mac and IOS (not tested with IL2CPP).
 
 ### Key Features
 
@@ -98,14 +100,14 @@ public class TestContext : Context {
 
 	public override void Start() {
 		container.Resolve<IViewMediationBinder>().Mediate(contextView);
-		container.Resolve<ICommandDispatcher>().Dispatch(new StartCommand());
+		container.Resolve<ICommandDispatcher>().Dispatch(new StartCommand()).Subscribe();
 	}
 }
 ```
 
 CustomContextView also allows you to specify any number of sub-contexts to initialize as dependencies (ie. before the main Context initializes). If a Context is going to be used as a sub-context, it should be defined in a different scene, be part of the build pipeline and have the `[Scene("<Name>")]` attribute specified. If the dependency graph of the application requires some implementation that can't be found in the main context, it will defer the search to any of its sub-contexts. You can not have more than one sub-context of the same type.
 
-#### [Optional] Context Configuration
+#### Context Configuration
 
 The following will register all of Inconspicuous.Framework's default providers with the context, as seen in the example above.
 
@@ -113,7 +115,7 @@ The following will register all of Inconspicuous.Framework's default providers w
 ContextConfiguration.Default.Configure(container);
 ```
 
-#### [Optional] View Mediation
+#### View Mediation
 
 By the default, the ContextView (or any of it's children) are not mediated. View mediation can be performed by executing the following once all required mediators are registered with the context:
 
@@ -158,9 +160,9 @@ public class OpenPanelCommandHandler : CommandHandler<OpenPanelCommand, Unit> {
 Commands can also return results. Both CommandHandler and CommandDispatcher are designed in such a way that this process is completely type-safe and takes full advantage of Rx by returning an `IObservable<TResult>`. The framework includes some common commands that are useful for just about every type of program:
 
 ```
-commandDispatcher.Dispatch(new LoadSceneCommand { SceneName = "Test" });
-commandDispatcher.Dispatch(new RestartSceneCommand());
-commandDispatcher.Dispatch(new QuitApplicationCommand());
+commandDispatcher.Dispatch(new LoadSceneCommand { SceneName = "Test" }).Subscribe();
+commandDispatcher.Dispatch(new RestartSceneCommand()).Subscribe();
+commandDispatcher.Dispatch(new QuitApplicationCommand()).Subscribe();
 ```
 
 #### MacroCommands
@@ -171,7 +173,7 @@ A common use case for commands is to execute multiple sub-commands in succession
 commandDispatcher.Dispatch(new MacroCommand(MacroCommandType.Sequence) {
 	new LoginCommand { Email = "john@doe.com", Password = "johndoe" },
 	new OpenPanelCommand()
-});
+}).Subscribe();
 ```
 
 ## Credits
@@ -180,7 +182,7 @@ Inconspicuous.Framework was created by Inconspicuous AS (http://www.inconspicuou
 
 ### Dependencies
 
-This framework include parts of the following open-source libraries. You may have to extract the *.unitypackage to copy the required files to the correct directories.
+This framework requires the following library (not included):
 
 * UniRx (https://github.com/neuecc/UniRx)
 
