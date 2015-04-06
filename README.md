@@ -44,6 +44,7 @@ public class PanelView : View {
 
 	[Inject]
 	public void Construct(IAudioPlayer audioPlayer) {
+		this.audioPlayer = audioPlayer;
 		this.CloseSubject = new Subject<Unit>();
 	}
 	
