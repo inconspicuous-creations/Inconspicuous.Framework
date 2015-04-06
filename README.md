@@ -192,7 +192,7 @@ commandDispatcher.Dispatch(new RestartSceneCommand()).Subscribe();
 commandDispatcher.Dispatch(new QuitApplicationCommand()).Subscribe();
 ```
 
-#### MacroCommands
+#### Macro Commands
 
 A common use case for commands is to execute multiple sub-commands in succession, either in parallel (all commands are started immediately) or serially (the consequent command is not executed before the previous has finished). To help with this, the framework includes a MacroCommand and MacroCommandHandler. A MacroCommand is simply a list of Commands and a type that specifies whether the MacroCommand should execute in parallel or in sequence. In both cases, all results are aggregated and returned once all sub-commands have completed.
 
