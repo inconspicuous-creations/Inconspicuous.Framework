@@ -38,10 +38,12 @@ The View is a component that should be quite familiar to most Unity3D developers
 
 ```csharp
 public class PanelView : View {
+	private IAudioPlayer audioPlayer;
+
 	public Subject<Unit> CloseSubject { get; private set; }
 
 	[Inject]
-	public void Construct() {
+	public void Construct(IAudioPlayer audioPlayer) {
 		this.CloseSubject = new Subject<Unit>();
 	}
 	
@@ -53,8 +55,10 @@ public class PanelView : View {
 
 	public void SetVisible(bool visible) {
 		if(visible) {
+			audioPlayer.Play("enter");
 			// Do some fancy show animation.
 		} else {
+			audioPlayer.Play("exit");
 			// Do some fancy hide animation.
 		}
 	}
@@ -77,9 +81,9 @@ public class PanelMediator : Mediator<PanelView> {
 
 	public override void Mediate(PanelView view) {
 		panelViewModel.AsObservable("Active", () => panelViewModel.Active)
-			.Subscribe(x => view.SetVisible(x)).AddTo(this);
+			.Subscribe(x => view.SetVisible(x)).AddTo(view);
 		view.CloseSignal
-			.Subscribe(_ => panelViewModel.Active = false).AddTo(this);
+			.Subscribe(_ => panelViewModel.Active = false).AddTo(view);
 	}
 }
 ```
