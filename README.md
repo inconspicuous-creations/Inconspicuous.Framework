@@ -7,6 +7,8 @@ Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http
 
 The library has been tested and confirmed to work with Unity 4.6+ on PC, Mac and IOS (not tested with IL2CPP).
 
+Example project can be found here: [Inconspicuous.Framework.Example](https://github.com/inconspicuous-creations/Inconspicuous.Framework.Example)
+
 ### Key Features
 
 * DI container with support for open generics and decorators that works with AOT-only devices.
