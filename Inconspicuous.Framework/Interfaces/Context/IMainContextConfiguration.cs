@@ -1,6 +1,5 @@
 namespace Inconspicuous.Framework {
-	public interface IMainContextConfiguration {
-		void Configure(IContainer container);
+	public interface IMainContextConfiguration : IContextConfiguration {
 		void Start();
 	}
 }

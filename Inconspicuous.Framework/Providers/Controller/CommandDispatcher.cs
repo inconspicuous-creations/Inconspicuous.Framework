@@ -4,7 +4,6 @@ using System.ComponentModel.Composition;
 using UniRx;
 
 namespace Inconspicuous.Framework {
-	[Export(typeof(ICommandDispatcher))]
 	public class CommandDispatcher : ICommandDispatcher {
 		private readonly IContainer container;
 		private readonly Dictionary<Type, ICommandHandler> handlerMap;

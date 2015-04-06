@@ -12,11 +12,11 @@ namespace Inconspicuous.Framework {
 		[Type(typeof(IContext))]
 		private string firstContext;
 
-		public Signal<Unit> ApplicationResumedSignal { get; private set; }
+		public Subject<Unit> ApplicationResumedSignal { get; private set; }
 
 		[Inject]
 		public void Construct() {
-			this.ApplicationResumedSignal = new Signal<Unit>();
+			this.ApplicationResumedSignal = new Subject<Unit>();
 		}
 
 		public void Start() {
@@ -31,8 +31,8 @@ namespace Inconspicuous.Framework {
 
 		public void OnApplicationPause(bool paused) {
 			if(!paused) {
-				ApplicationResumedSignal = ApplicationResumedSignal ?? new Signal<Unit>();
-				ApplicationResumedSignal.Dispatch();
+				ApplicationResumedSignal = ApplicationResumedSignal ?? new Subject<Unit>();
+				ApplicationResumedSignal.OnNext(Unit.Default);
 			}
 		}
 	}

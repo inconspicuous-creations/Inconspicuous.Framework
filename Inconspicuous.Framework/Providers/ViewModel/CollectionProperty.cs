@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using UniRx;
 
 namespace Inconspicuous.Framework {
+	[Obsolete("Use the .NET idiomatic ObservableCollection<T> instead.")]
 	[Export(typeof(CollectionProperty<>))]
 	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public sealed class CollectionProperty<T> : ICollection<T>, IList<T>, IEnumerable<T>, IDisposable {

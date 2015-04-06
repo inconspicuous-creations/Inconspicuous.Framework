@@ -1,5 +1,3 @@
-#pragma warning disable 0168
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -23,18 +21,12 @@ namespace Inconspicuous.Framework {
 					var type = view.GetType();
 					var mediatorType = default(Type);
 					if(!mediatorTypeMap.TryGetValue(type, out mediatorType)) {
-						try {
-							mediatorType = typeof(IMediator<>).MakeGenericType(view.GetType());
-							mediatorTypeMap[type] = mediatorType;
-						} catch {
-							mediatorTypeMap[type] = null;
-						}
+						mediatorType = typeof(IMediator<>).MakeGenericType(view.GetType());
+						mediatorTypeMap[type] = mediatorType;
 					}
-					if(mediatorType != null) {
-						var mediator = container.Resolve(mediatorType, true) as IMediator;
-						if(mediator != null) {
-							mediator.Mediate(view);
-						}
+					var mediator = container.Resolve(mediatorType, true) as IMediator;
+					if(mediator != null) {
+						mediator.Mediate(view);
 					}
 				}
 			}

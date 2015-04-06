@@ -10,7 +10,6 @@ namespace Inconspicuous.Framework {
 		public ICollection<IContext> SubContexts { get; set; }
 	}
 
-	[Export(typeof(ICommandHandler<LoadSceneCommand, IContextView>))]
 	public class LoadSceneCommandHandler : CommandHandler<LoadSceneCommand, IContextView> {
 		private readonly ILevelManager levelManager;
 

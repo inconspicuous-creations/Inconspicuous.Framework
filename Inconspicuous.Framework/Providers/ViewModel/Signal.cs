@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using UniRx;
 
 namespace Inconspicuous.Framework {
+	[Obsolete("Use Subject<T> instead.")]
 	[Export(typeof(Signal<>))]
 	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public sealed class Signal<T> : IObservable<T>, IDisposable {

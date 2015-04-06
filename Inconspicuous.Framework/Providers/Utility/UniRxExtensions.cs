@@ -38,6 +38,10 @@ namespace Inconspicuous.Framework {
 			return disposable;
 		}
 
+		public static void OnNext(this Subject<Unit> subject) {
+			subject.OnNext(Unit.Default);
+		}
+
 		public static CompositeDisposable TryGetOrClearFromMap<T>(this Dictionary<T, CompositeDisposable> disposables, T key) {
 			var disposable = default(CompositeDisposable);
 			disposables.TryGetValue(key, out disposable);

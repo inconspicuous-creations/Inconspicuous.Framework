@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using UniRx;
 
 namespace Inconspicuous.Framework {
+	[Obsolete("Use the .NET idiomatic ViewModel pattern by inheriting or containing ViewModel instead.")]
 	[Export(typeof(Property<>))]
 	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public sealed class Property<T> : IObservable<T>, IDisposable {

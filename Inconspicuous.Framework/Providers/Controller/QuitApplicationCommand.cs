@@ -7,7 +7,6 @@ using UnityEngine;
 namespace Inconspicuous.Framework {
 	public class QuitApplicationCommand : ICommand<Unit> { }
 
-	[Export(typeof(ICommandHandler<QuitApplicationCommand, Unit>))]
 	public class QuitApplicationCommandHandler : CommandHandler<QuitApplicationCommand, Unit> {
 		private const string webPlayerQuitUrl = "http://www.inconspicuous.no";
 

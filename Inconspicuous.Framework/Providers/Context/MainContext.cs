@@ -14,6 +14,7 @@ namespace Inconspicuous.Framework {
 			} catch {
 				// Do nothing.
 			}
+			ContextConfiguration.Default.Configure(container);
 		}
 
 		public override void Start() {

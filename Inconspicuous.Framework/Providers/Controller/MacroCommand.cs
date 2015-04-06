@@ -19,7 +19,6 @@ namespace Inconspicuous.Framework {
 		public MacroCommandType MacroCommandType { get; set; }
 	}
 
-	[Export(typeof(ICommandHandler<MacroCommand, ICollection<object>>))]
 	public class MacroCommandHandler : CommandHandler<MacroCommand, ICollection<object>> {
 		private readonly ICommandDispatcher commandDispatcher;
 		private readonly IContextScheduler contextScheduler;

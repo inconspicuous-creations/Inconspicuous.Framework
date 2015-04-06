@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Inconspicuous.Framework {
 	public class RestartSceneCommand : ICommand<IContextView> { }
 
-	[Export(typeof(ICommandHandler<RestartSceneCommand, IContextView>))]
 	public class RestartSceneCommandHandler : CommandHandler<RestartSceneCommand, IContextView> {
 		private readonly ICommandDispatcher commandDispatcher;
 		private readonly IContextView contextView;

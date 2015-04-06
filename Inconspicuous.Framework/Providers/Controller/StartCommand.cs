@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Inconspicuous.Framework {
 	public class StartCommand : ICommand<Unit> { }
 
-	[Export(typeof(ICommandHandler<StartCommand, Unit>))]
 	public class StartCommandHandler : CommandHandler<StartCommand, Unit> {
 		private readonly IApplicationManager applicationManager;
 		private readonly ICommandDispatcher commandDispatcher;
