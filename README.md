@@ -18,7 +18,17 @@ The library has been tested and confirmed to work with Unity 4.6+ on PC, Mac and
 
 ![Diagram](/diagram.png?raw=true)
 
-## Details
+## Table of Contents
+
+* [Views](#views)
+* [Mediators and ViewModels](#mediators-and-viewmodels)
+* [Context and ContextViews](#context-and-contextviews)
+  * [Context Configuration](#context-configuration)
+  * [Context Configuration](#context-configuration)
+* [Commands, CommandHandlers and the CommandDispatcher](#commands-commandHandlers-and-the-commandDispatcher)
+  * [Macro Commands](#macro-commands)
+
+## Documentation
 
 ### Views
 
