@@ -50,9 +50,9 @@
     <Compile Include="Interfaces\Common\IFactory.cs" />
     <Compile Include="Interfaces\Common\INamed.cs" />
     <Compile Include="Interfaces\Common\IOwnable.cs" />
-    <Compile Include="Interfaces\Common\IRepository.cs" />
     <Compile Include="Interfaces\Context\IContainer.cs" />
     <Compile Include="Interfaces\Context\IContext.cs" />
+    <Compile Include="Interfaces\Context\IContextConfiguration.cs" />
     <Compile Include="Interfaces\Context\IContextScheduler.cs" />
     <Compile Include="Interfaces\Context\IMainContextConfiguration.cs" />
     <Compile Include="Interfaces\Context\IContextView.cs" />
@@ -73,6 +73,7 @@
     <Compile Include="Providers\Common\TypePropertyAttribute.cs" />
     <Compile Include="Providers\Context\Container.cs" />
     <Compile Include="Providers\Context\Context.cs" />
+    <Compile Include="Providers\Context\ContextConfiguration.cs" />
     <Compile Include="Providers\Context\ContextScheduler.cs" />
     <Compile Include="Providers\Context\ContextView.cs" />
     <Compile Include="Providers\Context\CustomContextView.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Providers\Context\MainContextView.cs" />
     <Compile Include="Providers\Controller\CommandDispatcher.cs" />
     <Compile Include="Providers\Controller\CommandHandler.cs" />
+    <Compile Include="Providers\Controller\DebugCommandHandlerDecorator.cs" />
     <Compile Include="Providers\Controller\LoadSceneCommand.cs" />
     <Compile Include="Providers\Controller\MacroCommand.cs" />
     <Compile Include="Providers\Controller\ObservableQueue.cs" />
@@ -90,6 +92,9 @@
     <Compile Include="Providers\Manager\LevelManager.cs" />
     <Compile Include="Providers\Utility\UniRxExtensions.cs" />
     <Compile Include="Providers\ViewModel\CollectionProperty.cs" />
+    <Compile Include="Providers\ViewModel\INotifyCollectionChanged.cs" />
+    <Compile Include="Providers\ViewModel\NotifyCollectionChangedEventArgs.cs" />
+    <Compile Include="Providers\ViewModel\ObservableCollection.cs" />
     <Compile Include="Providers\ViewModel\Property.cs" />
     <Compile Include="Providers\ViewModel\Signal.cs" />
     <Compile Include="Providers\ViewModel\ViewModel.cs" />
