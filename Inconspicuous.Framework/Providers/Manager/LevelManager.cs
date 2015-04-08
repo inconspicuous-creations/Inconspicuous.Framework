@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.ComponentModel.Composition;
 using UniRx;
 using UnityEngine;
 
@@ -24,47 +23,48 @@ namespace Inconspicuous.Framework {
 			}
 			return Observable.Throw<IContextView>(new CustomException("Can't load level at the moment."));
 		}
+	}
 
-		public class LevelManagerComponent : MonoBehaviour {
-			public bool LoadingLevel { get; private set; }
+	public class LevelManagerComponent : MonoBehaviour {
+		public bool LoadingLevel { get; private set; }
 
-			public IEnumerator LoadInBackground(string level, IObserver<IContextView> observer) {
-				LoadingLevel = true;
-				yield return Application.LoadLevelAsync(level);
-				var contextView = default(IContextView);
-				yield return StartCoroutine(WaitForContextView(x => contextView = x));
-				if(contextView != null) {
-					observer.OnNext(contextView);
-					yield return StartCoroutine(WaitForReady(contextView));
-				}
-				LoadingLevel = false;
-				observer.OnCompleted();
+		public IEnumerator LoadInBackground(string level, IObserver<IContextView> observer) {
+			LoadingLevel = true;
+			yield return Application.LoadLevelAsync(level);
+			var contextView = default(IContextView);
+			yield return StartCoroutine(WaitForContextView(x => contextView = x));
+			if(contextView != null) {
+				observer.OnNext(contextView);
+				yield return StartCoroutine(WaitForReady(contextView));
 			}
+			LoadingLevel = false;
+			observer.OnCompleted();
+		}
 
-			private IEnumerator WaitForContextView(Action<IContextView> contextViewSetter) {
-				var gameObject = default(GameObject);
-				var counter = 0f;
-				while(gameObject == null) {
-					counter += Time.deltaTime;
-					gameObject = GameObject.Find("_" + Application.loadedLevelName + "ContextView");
-					if(counter > 3f) {
-						break;
-					}
-					yield return null;
+		private IEnumerator WaitForContextView(Action<IContextView> contextViewSetter) {
+			var gameObject = default(GameObject);
+			var counter = 0f;
+			while(gameObject == null) {
+				counter += Time.deltaTime;
+				gameObject = GameObject.Find("_" + Application.loadedLevelName + "ContextView");
+				UnityEngine.Debug.Log(gameObject);
+				if(counter > 10f) {
+					break;
 				}
-				contextViewSetter(gameObject.GetComponent(typeof(IContextView)) as IContextView);
+				yield return null;
 			}
+			contextViewSetter(gameObject.GetComponent<IContextView>() as IContextView);
+		}
 
-			private IEnumerator WaitForReady(IContextView contextView) {
-				var concreteContextView = contextView as ContextView;
-				var counter = 0f;
-				while(concreteContextView == null || !concreteContextView.IsReady) {
-					counter += Time.deltaTime;
-					if(counter > 3f) {
-						break;
-					}
-					yield return null;
+		private IEnumerator WaitForReady(IContextView contextView) {
+			var concreteContextView = contextView as ContextView;
+			var counter = 0f;
+			while(concreteContextView == null || !concreteContextView.IsReady) {
+				counter += Time.deltaTime;
+				if(counter > 10f) {
+					break;
 				}
+				yield return null;
 			}
 		}
 	}
