@@ -47,7 +47,6 @@ namespace Inconspicuous.Framework {
 			while(gameObject == null) {
 				counter += Time.deltaTime;
 				gameObject = GameObject.Find("_" + Application.loadedLevelName + "ContextView");
-				UnityEngine.Debug.Log(gameObject);
 				if(counter > 10f) {
 					break;
 				}
