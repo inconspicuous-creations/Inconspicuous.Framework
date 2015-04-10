@@ -52,7 +52,7 @@ namespace Inconspicuous.Framework {
 				}
 				yield return null;
 			}
-			contextViewSetter(gameObject.GetComponent<IContextView>() as IContextView);
+			contextViewSetter(gameObject.GetComponent(typeof(IContextView)) as IContextView);
 		}
 
 		private IEnumerator WaitForReady(IContextView contextView) {
