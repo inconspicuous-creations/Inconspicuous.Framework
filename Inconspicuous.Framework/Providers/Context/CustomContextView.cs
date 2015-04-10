@@ -17,7 +17,7 @@ namespace Inconspicuous.Framework {
 
 		public void Start() {
 			if(!CheckAndRemoveDuplicate()) {
-				WaitForMainContext()
+				Observable.Zip(WaitForMainContext(), WaitForReady(), (x, _) => x)
 					.Subscribe(mainContext => {
 						if(subContextTypes.Length == 0) {
 							var type = Type.GetType(contextType);
@@ -50,6 +50,12 @@ namespace Inconspicuous.Framework {
 				return LoadSceneForContext(typeof(MainContextView));
 			}
 			return Observable.Return(view.GetComponent<MainContextView>().Context);
+		}
+
+		private IObservable<long> WaitForReady() {
+			return Observable.EveryUpdate()
+				.Where(_ => IsReady)
+				.First();
 		}
 	}
 }
