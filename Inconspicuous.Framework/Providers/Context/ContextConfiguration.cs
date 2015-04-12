@@ -29,7 +29,7 @@ namespace Inconspicuous.Framework {
 				container.Register<ICommandHandler<MacroCommand, ICollection<object>>, MacroCommandHandler>(Reuse.Singleton);
 				container.Register<ICommandHandler<LoadSceneCommand, IContextView>, LoadSceneCommandHandler>(Reuse.Singleton);
 				container.Register<ICommandHandler<QuitApplicationCommand, Unit>, QuitApplicationCommandHandler>(Reuse.Singleton);
-				container.Register<ICommandHandler<RestartSceneCommand, IContextView>, RestartSceneCommand>(Reuse.Singleton);
+				container.Register<ICommandHandler<RestartSceneCommand, IContextView>, RestartSceneCommandHandler>(Reuse.Singleton);
 				container.Register<ICommandHandler<StartCommand, Unit>, StartCommandHandler>(Reuse.Singleton);
 			}
 		}

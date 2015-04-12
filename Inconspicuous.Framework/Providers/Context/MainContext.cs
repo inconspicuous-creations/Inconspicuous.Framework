@@ -8,13 +8,13 @@ namespace Inconspicuous.Framework {
 		public MainContext(IContextView contextView, string sceneName)
 			: base(contextView) {
 			this.sceneName = sceneName;
+			ContextConfiguration.Default.Configure(container);
 			RegisterExports();
 			try {
 				container.Resolve<IMainContextConfiguration>().Configure(container);
 			} catch {
 				// Do nothing.
 			}
-			ContextConfiguration.Default.Configure(container);
 		}
 
 		public override void Start() {

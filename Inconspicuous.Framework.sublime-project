@@ -1,0 +1,20 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"follow_symlinks": true,
+			"path": ".",
+			"file_exclude_patterns": [
+				"*.meta",
+			],
+			"folder_include_patterns": [
+				"Inconspicuous.Framework",
+				"Inconspicuous.Framework/*",
+				"Inconspicuous.Framework.Editor",
+				"Inconspicuous.Framework.Editor/*"
+			]
+		}
+	],
+	"solution_file": "Inconspicuous.Framework.sln"
+}
