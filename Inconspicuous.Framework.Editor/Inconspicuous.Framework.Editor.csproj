@@ -6,8 +6,8 @@
     <ProjectGuid>{36619D93-C32F-4EAF-AD04-D7BB5167EC76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Inconspicuous.Framework</RootNamespace>
-    <AssemblyName>Inconspicuous.Framework</AssemblyName>
+    <RootNamespace>Inconspicuous.Framework.Editor</RootNamespace>
+    <AssemblyName>Inconspicuous.Framework.Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ProductVersion>10.0.20506</ProductVersion>
     <FileAlignment>512</FileAlignment>
@@ -57,5 +57,7 @@
     </ReferencePath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+  <Target Name="AfterBuild" Condition="">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\..\Inconspicuous.Integration\Editor" />
+  </Target>
 </Project>
