@@ -47,7 +47,7 @@ namespace Inconspicuous.Framework {
 			return disposable;
 		}
 
-		public static void OnNext(this Subject<Unit> subject) {
+		public static void OnNext(this IObserver<Unit> subject) {
 			subject.OnNext(Unit.Default);
 		}
 
