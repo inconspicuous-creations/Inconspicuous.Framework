@@ -1,0 +1,4 @@
+language: csharp
+solution: Inconspicuous.Framework.sln
+mono:
+  - 2.10.8
