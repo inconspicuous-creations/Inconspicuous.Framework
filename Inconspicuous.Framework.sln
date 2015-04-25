@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inconspicuous.Framework", "Inconspicuous.Framework\Inconspicuous.Framework.csproj", "{15FAE9F5-24A1-4B02-B264-0D0AD021E433}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inconspicuous.Framework", "Inconspicuous.Framework.csproj", "{15FAE9F5-24A1-4B02-B264-0D0AD021E433}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inconspicuous.Framework.Editor", "Inconspicuous.Framework.Editor\Inconspicuous.Framework.Editor.csproj", "{36619D93-C32F-4EAF-AD04-D7BB5167EC76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inconspicuous.Framework.Editor", "Inconspicuous.Framework.Editor.csproj", "{36619D93-C32F-4EAF-AD04-D7BB5167EC76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,4 @@
+[submodule "Library/UnityAssemblies"]
+	path = Library/UnityAssemblies
+	url = https://yuhe00@github.com/inconspicuous-creations/UnityAssemblies.git
+	branch = Unity4

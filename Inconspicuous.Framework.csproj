@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15FAE9F5-24A1-4B02-B264-0D0AD021E433}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Inconspicuous.Framework</RootNamespace>
+    <AssemblyName>Inconspicuous.Framework</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <FileAlignment>512</FileAlignment>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UniRx" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Inconspicuous.Framework\Interfaces\Common\IFactory.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Common\INamed.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Common\IOwnable.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContainer.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContext.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContextConfiguration.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContextScheduler.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IMainContextConfiguration.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContextView.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Controller\ICommand.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Controller\ICommandDispatcher.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Controller\ICommandHandler.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Manager\IApplicationManager.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Manager\ILevelManager.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\View\IMediator.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\View\IView.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Common\CustomException.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Common\ExportImportAttributes.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Common\GameObjectFactory.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Common\InjectAttribute.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Common\Lazy.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Common\SceneAttribute.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Common\TypePropertyAttribute.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\Container.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\Context.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\ContextConfiguration.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\ContextScheduler.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\ContextView.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\CustomContextView.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\MainContext.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Context\MainContextView.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\CommandDispatcher.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\CommandHandler.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\DebugCommandHandlerDecorator.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\LoadSceneCommand.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\MacroCommand.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\ObservableQueue.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\QuitApplicationCommand.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\RestartSceneCommand.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Controller\StartCommand.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Manager\ApplicationManager.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Manager\LevelManager.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\Utility\UniRxExtensions.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\ViewModel\CollectionProperty.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\ViewModel\INotifyCollectionChanged.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\ViewModel\NotifyCollectionChangedEventArgs.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\ViewModel\ObservableCollection.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\ViewModel\Property.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\ViewModel\Signal.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\ViewModel\ViewModel.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\View\Mediator.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\View\ObservableView.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\View\View.cs" />
+    <Compile Include="Inconspicuous.Framework\Providers\View\ViewMediationBinder.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <ReferencePath>
+      Library;
+      Library\UnityAssemblies;
+    </ReferencePath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\Inconspicuous.Integration\" />
+  </Target>
+</Project>
