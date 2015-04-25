@@ -216,7 +216,7 @@ Inconspicuous.Framework was created by Inconspicuous AS (http://www.inconspicuou
 
 ### Dependencies
 
-This framework requires the following library (not included):
+This framework requires the following library (source not included):
 
 * UniRx (https://github.com/neuecc/UniRx)
 
