@@ -1,7 +1,5 @@
-Inconspicuous.Framework
+Inconspicuous.Framework [![Build Status](https://travis-ci.org/inconspicuous-creations/Inconspicuous.Framework.svg?branch=master)](https://travis-ci.org/inconspicuous-creations/Inconspicuous.Framework)
 =======================
-
-[![Build Status](https://travis-ci.org/inconspicuous-creations/Inconspicuous.Framework.svg?branch=master)](https://travis-ci.org/inconspicuous-creations/Inconspicuous.Framework)
 
 ## Overview
 
