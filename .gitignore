@@ -1,5 +1,2 @@
 /obj/
 /bin/
-/Library/*
-!/Library/UniRx.dll
-!/Library/UnityAssemblies
