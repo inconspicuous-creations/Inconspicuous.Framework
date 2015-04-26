@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 namespace Inconspicuous.Framework {
-	public interface IView : IDisposable {
+	public interface IView {
 		GameObject GameObject { get; }
 	}
 }

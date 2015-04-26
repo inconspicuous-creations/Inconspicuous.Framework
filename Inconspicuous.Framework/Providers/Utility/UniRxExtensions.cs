@@ -42,10 +42,10 @@ namespace Inconspicuous.Framework {
 				x => notifyCollectionChanged.CollectionChanged -= x);
 		}
 
-		public static T AddTo<T>(this T disposable, CompositeDisposable compositeDisposable) where T : IDisposable {
-			compositeDisposable.Add(disposable);
-			return disposable;
-		}
+		// public static T AddTo<T>(this T disposable, CompositeDisposable compositeDisposable) where T : IDisposable {
+		// 	compositeDisposable.Add(disposable);
+		// 	return disposable;
+		// }
 
 		public static void OnNext(this IObserver<Unit> subject) {
 			subject.OnNext(Unit.Default);

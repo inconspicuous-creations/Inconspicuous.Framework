@@ -23,8 +23,7 @@ namespace Inconspicuous.Framework {
 			IsReady |= Time.timeSinceLevelLoad > 1f;
 		}
 
-		protected override void Dispose(bool disposing) {
-			base.Dispose(disposing);
+		public virtual void OnDestroy() {
 			if(Context != null) {
 				Context.Dispose();
 			}

@@ -6,13 +6,18 @@
 			"follow_symlinks": true,
 			"path": ".",
 			"file_exclude_patterns": [
-				"*.meta",
+				"*.meta"
 			],
 			"folder_include_patterns": [
 				"Inconspicuous.Framework",
 				"Inconspicuous.Framework/*",
 				"Inconspicuous.Framework.Editor",
 				"Inconspicuous.Framework.Editor/*"
+			],
+			"folder_exclude_patterns": [
+				"bin",
+				"obj",
+				"Library"
 			]
 		}
 	],

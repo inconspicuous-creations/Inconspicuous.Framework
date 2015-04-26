@@ -25,9 +25,9 @@ namespace Inconspicuous.Framework {
 				// Do nothing.
 			}
 			container.Resolve<IViewMediationBinder>().Mediate(container.Resolve<IContextView>());
-			container.Resolve<ICommandDispatcher>().Dispatch(new StartCommand()).Subscribe().AddTo(this);
+			container.Resolve<ICommandDispatcher>().Dispatch(new StartCommand()).Subscribe().AddTo(container.Resolve<IContextView>().GameObject);
 			if(Application.loadedLevelName == "Main") {
-				container.Resolve<ICommandDispatcher>().Dispatch(new LoadSceneCommand { SceneName = sceneName }).Subscribe().AddTo(this);
+				container.Resolve<ICommandDispatcher>().Dispatch(new LoadSceneCommand { SceneName = sceneName }).Subscribe().AddTo(container.Resolve<IContextView>().GameObject);
 			}
 		}
 	}

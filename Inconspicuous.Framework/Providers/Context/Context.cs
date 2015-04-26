@@ -7,10 +7,10 @@ using UniRx;
 namespace Inconspicuous.Framework {
 	public abstract class Context : IContext {
 		protected readonly IContainer container;
-		private readonly CompositeDisposable disposable;
+		private readonly BooleanDisposable disposable;
 
 		protected Context() {
-			this.disposable = new CompositeDisposable();
+			this.disposable = new BooleanDisposable();
 			this.container = new Container();
 			container.Register<IContext>(this);
 			container.Register<IContainer>(container);
@@ -74,10 +74,6 @@ namespace Inconspicuous.Framework {
 				container.Parent = lastContainer;
 				subContexts.First().container.Parent = container;
 			}
-		}
-
-		public static implicit operator CompositeDisposable(Context context) {
-			return context.disposable;
 		}
 	}
 }

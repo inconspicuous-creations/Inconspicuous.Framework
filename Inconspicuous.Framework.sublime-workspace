@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"GamE",
+				"GameObject"
+			],
+			[
 				"factorialS",
 				"factorialSums"
 			],
@@ -510,10 +514,6 @@
 			[
 				"Comm",
 				"CommonContext"
-			],
-			[
-				"depen",
-				"dependencies"
 			]
 		]
 	},
@@ -564,7 +564,7 @@
 	"command_palette":
 	{
 		"height": 207.0,
-		"last_filter": "clean",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -672,14 +672,34 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework"
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Interfaces",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Interfaces/Context",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Utility",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/View"
 	],
 	"file_history":
 	[
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Interfaces/Context/IContextView.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context/ContextView.cs",
+		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Ebony/01 - Game/Context/GameContext.cs",
+		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Ebony/01 - Game/View/Board/BoardView.cs",
+		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Ebony/01 - Game/View/Components/ButtonSound.cs",
+		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Integration/Common/Console/Context/ConsoleContext.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context/Context.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context/MainContext.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Interfaces/Context/IContext.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/View/ObservableView.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework.sublime-project",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Utility/UniRxExtensions.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/View/View.cs",
+		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Interfaces/View/IView.cs",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework.csproj",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework.Editor.csproj",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework.Editor/Editor/TypePropertyDrawer.cs",
-		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/View/ObservableView.cs",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Library/link.sh",
 		"/Users/yuhe/Library/Application Support/Sublime Text 3/Packages/User/OmniSharpSublime.sublime-settings",
 		"/Users/yuhe/Library/Application Support/Sublime Text 3/Packages/OmniSharp/OmniSharpSublime.sublime-settings",
@@ -697,7 +717,6 @@
 		"/Users/yuhe/Library/Application Support/Sublime Text 3/Packages/SublimeHaskell/Settings/SublimeHaskell.sublime-settings",
 		"/Users/yuhe/Downloads/test/Makefile",
 		"/Users/yuhe/Dropbox/Apps/Transmit/Favorites/Favorites.xml",
-		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Utility/UniRxExtensions.cs",
 		"/Users/yuhe/Dropbox/Apps/Transmit/Favorites/Transmit Favorites.exportedFavorites",
 		"/Users/yuhe/Downloads/test/test.cabal",
 		"/Users/yuhe/Downloads/test/test.hs",
@@ -741,14 +760,12 @@
 		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Ebony/01 - Game/Providers/Menu/MatchListPanel.cs",
 		"/Users/yuhe/Documents/Projects/Games/ebony/.gitignore",
 		"/Users/yuhe/Documents/Projects/Games/ebony/UnityVS.ebony.sln",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Ebony/01 - Game/Context/GameContext.cs",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework.Editor/Inconspicuous.Framework.Editor.csproj",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Inconspicuous.Framework.csproj",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous/Inconspicuous.Editor/Inconspicuous.Editor.csproj",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Integration/push.sh",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous/Inconspicuous/Inconspicuous.csproj",
 		"/Users/yuhe/Documents/Projects/Library/Inconspicuous/Inconspicuous.sublime-project",
-		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework.sublime-project",
 		"/Users/yuhe/Library/Application Support/Sublime Text 3/Packages/User/C# xbuild.sublime-build",
 		"/Users/yuhe/Documents/Projects/Tests/Inconspicuous.Framework/Inconspicuous.Framework/Inconspicuous.Framework.csproj",
 		"/Users/yuhe/Documents/Projects/Tests/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context/MainContext.cs",
@@ -793,21 +810,11 @@
 		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Integration/Common/Message/View/DialogMessageView.cs",
 		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Integration/Common/Console/View/EventSystemActivator.cs",
 		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Inconspicuous.Framework/Providers/Context/ContextScheduler.cs",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Inconspicuous.Framework/Providers/Controller/StartCommand.cs",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Inconspicuous.Framework/Providers/Controller/CommandDispatcher.cs",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Inconspicuous.Framework/Interfaces/Context/IMainContextConfiguration.cs",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Ebony/00 - Main/EbonyMainContextConfiguration.cs",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Inconspicuous.Framework/Providers/Context/Container.cs",
-		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context/MainContextView.cs",
-		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context/MainContext.cs",
-		"/Users/yuhe/Documents/Projects/Library/Inconspicuous.Framework/Inconspicuous.Framework/Providers/Context/CustomContextView.cs",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Inconspicuous.Framework.dll",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Integration/Common/Console/Context/ConsoleContext.cs",
-		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Ebony/01 - Game/View/Board/BoardCameraView.cs"
+		"/Users/yuhe/Documents/Projects/Games/ebony/Assets/_ROOT/Inconspicuous.Integration/Inconspicuous.Framework/Providers/Controller/StartCommand.cs"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -952,7 +959,7 @@
 			"PurchasableIcon"
 		],
 		"highlight": true,
-		"in_selection": true,
+		"in_selection": false,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
@@ -1064,6 +1071,8 @@
 	"selected_group": 0,
 	"settings":
 	{
+		"_vintageous_last_buffer_search": "disposable",
+		"_vintageous_last_buffer_search_command": "vi_slash",
 		"_vintageous_reset_during_init": true,
 		"vintage":
 		{
