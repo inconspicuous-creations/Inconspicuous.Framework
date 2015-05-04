@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Inconspicuous.Framework {
 	[Scene("Main")]
-	public sealed class MainContextView : ContextView {
+	public sealed class MainContextView : ContextView, IMainContextView {
 		[SerializeField]
 		[Type(typeof(IContext))]
 		private string firstContext;

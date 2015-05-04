@@ -9,6 +9,7 @@ namespace Inconspicuous.Framework {
 			: base(contextView) {
 			this.sceneName = sceneName;
 			ContextConfiguration.Default.Configure(container);
+			container.Register<IMainContextView>(contextView as IMainContextView);
 			RegisterExports();
 			try {
 				container.Resolve<IMainContextConfiguration>().Configure(container);

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -39,6 +38,7 @@
     <Compile Include="Inconspicuous.Framework\Editor\EditorUtility.cs" />
     <Compile Include="Inconspicuous.Framework\Editor\SelectTypeWindow.cs" />
     <Compile Include="Inconspicuous.Framework\Editor\TypePropertyDrawer.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IMainContextView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inconspicuous.Framework\Inconspicuous.Framework.csproj">

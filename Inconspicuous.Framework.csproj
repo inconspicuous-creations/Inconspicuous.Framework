@@ -46,6 +46,7 @@
     <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContextConfiguration.cs" />
     <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContextScheduler.cs" />
     <Compile Include="Inconspicuous.Framework\Interfaces\Context\IMainContextConfiguration.cs" />
+    <Compile Include="Inconspicuous.Framework\Interfaces\Context\IMainContextView.cs" />
     <Compile Include="Inconspicuous.Framework\Interfaces\Context\IContextView.cs" />
     <Compile Include="Inconspicuous.Framework\Interfaces\Controller\ICommand.cs" />
     <Compile Include="Inconspicuous.Framework\Interfaces\Controller\ICommandDispatcher.cs" />
