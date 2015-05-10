@@ -5,7 +5,7 @@ Inconspicuous.Framework [![Build Status](https://travis-ci.org/inconspicuous-cre
 
 Inconspicuous.Framework provides a code-centric and architecturally [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) framework for Unity3D/C# by combining a number of modern patterns and solutions. It is assumed that you have decent knowledge of Unity3D, C# and [Rx](https://rx.codeplex.com/), as well as familiarity with the concepts of IoC, DI and MVCVM.
 
-The library has been tested and confirmed to work with Unity 4.6+ on PC, Mac and IOS (not tested with IL2CPP).
+The library has been tested and confirmed to work with Unity 4.6+ on PC, Mac and IOS (including IL2CPP).
 
 Example project can be found here: [Inconspicuous.Framework.Example](https://github.com/inconspicuous-creations/Inconspicuous.Framework.Example)
 
